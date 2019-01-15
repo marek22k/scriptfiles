@@ -1,0 +1,78 @@
+# -*- coding: UTF-8 -*-
+# Name: scriptFilesConsole.py
+# Version: 1.0
+# Database: test.mk16.de/scriptFiles
+#########################################
+# This File and Functions is by Marek Küthe
+
+# Imports:
+import re;
+import httplib;
+
+# Functions:
+# Function getfile(files):
+def getfile(files):
+    g = httplib.HTTPConnection('test.mk16.de',80);
+    header = {                                              # Def HTTP-Header
+        'Host':'test.mk16.de',
+        'Content-Type':'text/html'
+    }
+    g.request('GET','/scriptFiles/' + files,headers=header);
+    r = g.getresponse();
+    ret = r.read();
+    if(r.status != 200): # if not forbidden or not found or error
+        ret = r.reason;
+    return ret;          # Return file or error-info
+# Function fIndex(path=''):
+def fIndex(path, search=''):
+    code = '';
+    g = httplib.HTTPConnection('test.mk16.de',80);
+    header = {                                   # Def HTTP-Header
+        'Host':'test.mk16.de',
+        'Content-Type':'text/html',
+        'F':'0',
+        'P':'*'+search+'*'
+    }
+    g.request('GET','/scriptFiles/' + path + '?F=0&P=*' + search + '*',headers=header);
+    r = g.getresponse(); # Get HTTP-Response
+    code = r.read(); # Get HTTP-Response-Content
+    
+    #RegEx
+    RegEx = r'\<a href\=\"?(\S+)\">([^>]*)\<\/a\>'; # Def RegEx
+    
+    result = re.findall(RegEx, code);               # Find in code RegExs
+    w = 0;
+    while True:                                     # While for output reult of RegExs
+        try:
+            x = result[w];
+        except:
+            break;
+        if(x == None or x == ''):
+            break;
+        if(x[0] != '/'):
+            print(x[0]);
+        w += 1;
+# Function main(path):
+# The start function
+def main(path):
+    s = path;
+    e = raw_input('>'+path); # input command
+    s += e;
+    if(e == '_clear'):       # Clear Path-Memory-System
+        s = '';
+    if(e != '_exit'):        # Not Exit Application
+        if('_file' in e):    # if get file
+            f = raw_input('>'+path); # Input filename
+            print(getfile(path+'/'+f)); # print file content ::start function getfile(file)
+            main(path); # start function main(path);
+        elif(e == '_search'):
+            r = raw_input('>'+path);
+            fIndex(path, r);
+            main(path);
+        else:
+            print('-----------------------------------');
+            fIndex(s);
+            main(s);
+# Main points
+fIndex(''); # Index folder /
+main('');   # Start function main(path)

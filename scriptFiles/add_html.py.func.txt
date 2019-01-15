@@ -1,0 +1,255 @@
+#!/usr/bin/python
+# -*- coding: ISO-8859-1 -*-
+# Name: add_html.py
+# Version: 1.0
+# Copyright(c) by Marek Küthe
+
+"""
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Dieses Programm ist Freie Software: Sie koennen es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veroeffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Dieses Programm wird in der Hoffnung bereitgestellt, dass es nuetzlich sein wird, jedoch
+    OHNE JEDE GEWAEHR,; sogar ohne die implizite
+    Gewaehr der MARKTFAEHIGKEIT oder EIGNUNG FUER EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fuer weitere Einzelheiten.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+
+"""
+
+# Settings:
+
+menu_points      = ["Home","test.mk16.de"];
+menu_pointsPaths = ["./","http://test.mk16.de"];
+
+menu_add_text    = "Add Application(add_html.py)";
+
+window_application_title = "Application reader - add_html.py";
+window_close_title = "X";
+window_button_text = "Add";
+
+
+#German - Deutsch
+#
+#menu_points      = ["Startseite","test.mk16.de"];
+#menu_pointsPaths = ["./","http://test.mk16.de"];
+#
+#menu_add_text    = "Rechner Programm(add_html.py)";
+#
+#window_application_title = "Progarmm leser - add_html.py";
+#window_close_title = "X";
+#window_button_text = "Los";
+
+
+# Application:
+
+import cgi;
+import cgitb;
+cgitb.enable();
+
+print("HTTP/1.1 200 OK\nContent-Type: text/html; charset=ISO-8859-1\n");
+
+input_data = cgi.FieldStorage();
+
+ps = '';
+for i in range(0,len(menu_points)):
+    # Example: <div class="point close"><a href="./">Home</a></div>
+    try:
+        ps += "\n" + '            <div class="point close"><a href="' + menu_pointsPaths[i] + '">' + menu_points[i] + '</a></div>';
+    except:
+        True;
+    
+end_num = str('');
+num1 = str('');
+num2 = str('');
+addStyle = str("""/* Copyright(c) by Marek Küthe */
+        body {
+            background: url("//www.hundert-prozent.net/Images/background1.jpg") no-repeat center center fixed;
+            background-color: white;
+        }
+        form {
+            background-color: gray;
+            display: inline-block;
+            padding: 15px;
+            position: fixed;
+            top: 40%;
+            left: 35%;
+            z-index: 999;
+            box-shadow: 10px 10px 7.5px black;
+            color: white;
+
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -o-border-radius: 10px;
+            -ms-border-radius: 10px;
+        }
+        form div p.show {
+            display: inline;
+        }
+        form input[type="number"], form div p.show {
+            width: 55px;
+            border: none;
+            padding: 5px;
+            margin: 0px;
+            background-color: blue;
+            color: yellow;
+            font-family: Arial;
+            font-size: 16.5;
+
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -o-border-radius: 10px;
+            -ms-border-radius: 10px;
+        }
+        form input[type="submit"] {
+            margin: 0px;
+            margin-top: 5px;
+            padding: 2px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            background-color: green;
+            color: white;
+            font-family: Arial;
+            font-weight: bold;
+
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -o-border-radius: 10px;
+            -ms-border-radius: 10px;
+        }
+        form .title {
+            top: 0px;
+            width: 100%;
+            margin: 0px;
+            margin-top: -15px;
+            margin-bottom: 7px;
+            text-align: center;
+            color: white;
+            background-color: black;
+
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -o-border-radius: 10px;
+            -ms-border-radius: 10px;
+        }
+        form .title p {
+            position: fixed;
+            display: inline-block;
+            background-color: red;
+            color: black;
+            margin-left: 5px;
+            margin-top: 0px;
+            padding: 1px;
+            font-size: 10px;
+            font-family: Arial;
+            cursor: pointer;
+
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -o-border-radius: 5px;
+            -ms-border-radius: 5px;
+        }
+        div.bar {
+            display: block;
+            position: fixed;
+            width: 100%;
+            border: none;
+            background-color: gold;
+            padding: 10px;
+            margin: 0px;
+            top: 0px;
+            left: 0px;
+        }
+        div.bar div.point {
+            background-color: red;
+            display: inline-block;
+            padding: 5px;
+            text-align: center;
+
+            border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -o-border-radius: 20px;
+            -ms-border-radius: 20px;
+        }
+        div.bar div.point.open {
+            border: 1px solid royalblue;
+        }
+        div.bar div.point.close {
+            border: 1px dotted royalblue;
+            margin-right: 5px;
+        }
+        div.bar div.point a {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }""");
+
+addScript = str("""             function AppFileClose(AppName) {
+                    if(AppName == 'add_html.py'){
+                        document.getElementById('add-py').style.display = 'none';
+                        document.getElementById('add-py-point').style.border = '1px dotted royalblue';
+                    }
+                }
+                function AppFileOpen(AppName) {
+                    if(AppName == 'add_html.py'){
+                        document.getElementById('add-py').style.display = 'block';
+                        document.getElementById('add-py-point').style.border = '1px solid royalblue';
+                    }
+                }""");
+
+try:
+    num1 = input_data["num1"].value;
+    num2 = input_data["num2"].value;
+    end_num = str(int(num1)+int(num2));
+except:
+    True;
+
+print("""<!DOCTYPE html>
+<html>
+    <head>
+        <title>add_html.py</title>
+        <style type="text/css">
+        {style}
+        </style>
+        <script type="text/javascript" language="JavaScript">
+{javascript}
+        </script>
+    </head>
+    <body>
+        <form action="add_html.py" method="GET" id="add-py">
+            <div class="title">{winAppTitle}<p onClick="AppFileClose('add_html.py');">{winClose}</p></div>
+            <div>
+                <input type="number" name="num1" value="{n1}" /> + 
+                <input type="number" name="num2" value="{n2}" /> = <p class="show">{result}</p>
+            </div>
+            <input type="submit" value="{bt}" />
+        </form>
+        <div class="bar">{points}
+            <div class="point open" id="add-py-point"><a href="#" onClick="AppFileOpen('add_html.py');">{add_py}</a></div>
+        </div>
+    </body>
+</html>""".format(result=end_num,n1=num1,n2=num2,style=addStyle,javascript=addScript,points=ps,add_py=menu_add_text,winAppTitle=window_application_title,winClose=window_close_title,bt=window_button_text));

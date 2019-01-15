@@ -1,0 +1,84 @@
+' modules v1.0 from mk16.de
+' 
+' Dim moduname As modules.modulename = New modules.modulename("typeReader.py", "test.mk16.de", "/scriptFiles/", ".func.txt")
+' Dim modu As modules.getModule = New modules.getModule(moduname)
+' modu.runDownload()
+' modu.runContent()
+' MsgBox(modu.getValue())
+
+Namespace modules
+    Class getModule
+        Dim modname As modulename
+        Dim file As String = ""
+        Dim content As String = ""
+        Dim tmpfile As String = System.IO.Path.GetTempPath & System.IO.Path.GetRandomFileName
+        Sub New(ByVal a As modulename)
+            modname = a
+            file = a.getFile
+        End Sub
+        Function runDownload()
+            If (My.Computer.Network.IsAvailable = True) Then
+                Try
+                    My.Computer.Network.DownloadFile(file, tmpfile)
+                    Return True
+                Catch ex As Exception
+                    Return ex
+                End Try
+            Else
+                Return False
+            End If
+        End Function
+        Function runContent()
+            Try
+                content = My.Computer.FileSystem.ReadAllText(tmpfile)
+                Return True
+            Catch ex As Exception
+                Return ex
+            End Try
+        End Function
+        Function getValue()
+            Return content
+        End Function
+        Function getLocalfile()
+            Return tmpfile
+        End Function
+        Function editLocalfile(ByVal localfile As String)
+            Try
+                tmpfile = localfile
+                Return True
+            Catch ex As Exception
+                Return ex
+            End Try
+        End Function
+    End Class
+
+    Module functions
+        Function clearModule(ByVal modu As getModule)
+            Try
+                Dim f As String = modu.getLocalfile()
+                If (My.Computer.FileSystem.FileExists(f) = True) Then
+                    My.Computer.FileSystem.WriteAllText(f, "", False)
+                End If
+                modu.runContent()
+                Return modu
+            Catch ex As Exception
+                Return ex
+            End Try
+        End Function
+    End Module
+
+    Class modulename
+        Dim modulename As String = ""
+        Dim file As String = ""
+        Sub New(ByVal modulename As String, ByVal server As String, ByVal path As String, ByVal fileEnd As String)
+            modulename = modulename
+            file = "http://" & server & path & modulename & fileEnd
+        End Sub
+        Function getModulename()
+            Return modulename
+        End Function
+        Function getFile()
+            Return file
+        End Function
+    End Class
+End Namespace

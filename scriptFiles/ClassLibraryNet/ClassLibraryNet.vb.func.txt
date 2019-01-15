@@ -1,0 +1,61 @@
+﻿Module ClassLibraryNet
+
+    ' Name: ClassLibraryNet
+    ' Version: 1.0
+    ' Of: 2016
+    ' By: mk16.de
+    ' E-Mail: webmaster@mk16.de
+
+    Function downloadWebFile(ByVal websitefile As String, ByVal localfile As String) As String
+        Try
+            Dim tmpfile As String = System.IO.Path.GetTempPath() & System.IO.Path.GetRandomFileName()
+            My.Computer.Network.DownloadFile(websitefile, tmpfile)
+            If Not (localfile = "") Then
+                My.Computer.FileSystem.CopyFile(tmpfile, localfile, True)
+                Return localfile
+            Else
+                Return tmpfile
+            End If
+        Catch ex As Exception
+            Return ex.Message.ToString
+        End Try
+    End Function
+
+    Function downloadReadFile(ByVal localfile As String) As String
+        Try
+            Dim tmpfile As String = System.IO.Path.GetTempPath() & System.IO.Path.GetRandomFileName()
+            My.Computer.FileSystem.CopyFile(localfile, tmpfile)
+            Dim filecontent As String = My.Computer.FileSystem.ReadAllText(tmpfile, Text.Encoding.UTF8)
+            Return filecontent
+        Catch ex As Exception
+            Return ex.Message.ToString
+        End Try
+    End Function
+
+    Function websiteStart(ByVal website As String) As String
+        Try
+            Return Process.Start(website).ToString
+        Catch ex As Exception
+            Return ex.Message.ToString
+        End Try
+    End Function
+
+    Function ping(ByVal website As String, ByVal timeout As Integer) As Boolean
+        Try
+            Return My.Computer.Network.Ping(website, timeout)
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Function outputWebFile(ByVal website As String) As String
+        Try
+            Dim value = ClassLibraryNet.downloadReadFile(ClassLibraryNet.downloadWebFile(website, ""))
+            MsgBox(value)
+            Return value
+        Catch ex As Exception
+            Return ex.Message.ToString
+        End Try
+    End Function
+
+End Module

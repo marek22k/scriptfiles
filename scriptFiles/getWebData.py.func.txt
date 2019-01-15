@@ -1,0 +1,16 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+def getWebData(website, path="/", port=80, header={}, ssl=False, method="GET"):
+    import httplib;
+    try:
+        h = '';
+        if(ssl == False):
+            h = httplib.HTTPConnection(website, port);
+        else:
+            h = httplib.HTTPSConnection(website, port);
+        h.request(method, path, headers=header);
+        r = h.getresponse();
+        return [r.read(), r.status, r.reason];
+    except:
+        return [False, False, False];

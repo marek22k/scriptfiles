@@ -1,0 +1,9 @@
+package exit {line}{print "Goodbye"};
+
+package Wait {for 0 100000 1 {!$!}};
+package Random {print "Random : "}{for 1 9 1 {!time t!}{!print t + __FOR__ * __FOR__ % 10!}{!print "-"!}{!run Wait!}}{time t}{print t % 10}{line};
+
+svar t;
+svar i = 0;
+while i < 2 {() Random}{i = @ i + 1}{() Wait};
+$ () Wait = run Wait;

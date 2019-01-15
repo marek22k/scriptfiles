@@ -1,0 +1,71 @@
+import ConfigParser;
+import httplib;
+from Tkinter import *;
+
+mr = ConfigParser.ConfigParser();
+mr.read('AppData/Settings/read.ini');
+
+sc = ConfigParser.ConfigParser();
+sc.read(mr.get('READ','Application'));
+hc = ConfigParser.ConfigParser();
+hc.read(mr.get('READ','HTTPConfig'));
+
+def getHTTP(server,port,method,path):
+    h = httplib.HTTPConnection(server,port);
+    h.request(method,path);
+    r = h.getresponse();
+    if r.status == 301:
+        y = server.split('.');
+        if y[0] == 'www':
+            z = server.replace('www.','');
+            return getHTTP(z,port,method,path);
+        else:
+            z = 'www.' + server;
+            return getHTTP(z,port,method,path);
+    else:
+        return hc.get('MarkupLanguage','commantstart') + "\n" + str(r.status) + ' ' + r.reason + "\nGetHTTPFile by test.mk16.de\nPowerd by www.hundert-prozent.net\n"+hc.get('MarkupLanguage','commantend')+"\n\n" + r.read();
+
+tr = Tk('GetHTTPFileWindow','GetHTTPFileWindow');
+tr.title('GetHTTPFile');
+tr.geometry(sc.get('Application','size'));
+
+tr.wm_iconbitmap(sc.get('Application','ico'));
+
+tmenu = Menu(tr);
+tr.config(menu=tmenu);
+
+label1 = Label(tr, text="GetHTTPFile by test.mk16.de\nPowerd by www.hundert-prozent.net");
+label1.pack();
+
+input1 = Entry(tr);
+input1.pack();
+input1.insert(0, 'forHTTP.ini');
+
+def go_click():
+    ini = input1.get();
+    
+    c = ConfigParser.ConfigParser();
+    c.read(ini);
+
+                                            # [DATA]
+    memoryFile = c.get('DATA','localfile'); # file=/memoryFile.html
+    server = c.get('DATA','server');        # server=test.mk16.de
+    port = c.get('DATA','port');            # port=80
+    method = c.get('DATA','method');        # method=GET
+    path = c.get('DATA','path');            # path=/
+
+    fileData = getHTTP(server,port,method,path);
+
+    myFile = file(memoryFile,'w');
+    myFile.write(fileData);
+    myFile.close();
+
+button1 = Button(tr, text=sc.get('Application_Button','text'), command=go_click, bd=sc.get('Application_Button','Border'), bg=sc.get('Application_Button','bgcolor'), fg=sc.get('Application_Button','color'));
+button1.pack();
+
+mPoint1 = Menu(tmenu);
+tmenu.add_cascade(label=sc.get('Application_Menu','pointtext'), menu=mPoint1);
+mPoint1.add_command(label=sc.get('Application_Menu','runtext'), command=go_click);
+mPoint1.add_command(label=sc.get('Application_Menu','exittext'), command=tr.destroy);
+
+tr.mainloop();

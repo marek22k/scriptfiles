@@ -1,0 +1,8 @@
+CC = g++
+YACC = bison
+
+prog:
+	$(YACC) mcalc.ypp
+	$(CC) mcalc.tab.cpp -c -o mcalc.tab.cpp.o -std=c++17 -O3 -Wall -Wextra -Wpedantic
+	$(CC) mcalc.cpp -c -o mcalc.cpp.o -std=c++17 -O3 -Wall -Wextra -Wpedantic
+	$(CC) mcalc.cpp.o mcalc.tab.cpp.o -o mcalc.exe -m32

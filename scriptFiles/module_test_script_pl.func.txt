@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+# The author of this program is Marek K.
+
+use warnings;
+use strict;
+
+my $check = 3;
+#use Test::Simple;
+use Test::More;# tests => 32;
+done_testing(8*$check+8);
+
+note "The author of this program is Marek K.";
+
+BEGIN {
+	use_ok("warnings") or diag("Please use module warnings");
+	use_ok("strict") or diag("Please use module strict");
+	use_ok("Test::Simple") and use_ok("Test::More") or diag("Please use module Test::More");
+}
+
+ok(5+2*5 == 15, "Math test 1");
+cmp_ok(5+5, "<=", 15, "Math test 2");
+isnt(1+1, 1-1, "Math test 3");
+is(reverse("helloworld"), "dlrowolleh", "Reverse test");
+
+for(my $i = 0; $i < $check; $i++) {
+	pass("Math test 1");
+	pass("Math test 2");
+	pass("Math test 3");
+	pass("Reverse test");
+	#fail("Math test 1");
+	#fail("Math test 2");
+	#fail("Math test 3");
+	#fail("Reverse test");
+	require_ok("warnings") or diag("Please use module warnings");
+	require_ok("strict") or diag("Please use module strict");
+	require_ok("Test::Simple") and require_ok("Test::More") or diag("Please use module Test::More");
+}

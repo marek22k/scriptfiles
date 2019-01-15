@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>DynArr - Dynamic Array</title>
+		
+		<meta name="author" content="Marek K.">
+		<meta name="web_author" content="Marek K.">
+		<meta name="description" content="Next up is a new type called DynArr. Next, you can create a new DynArr with -DynArr da;-. To add an element to a DynArr, the function DynArr_push can be used. The function adds the element at the end of the DynArr.">
+		<meta name="keywords" content="DynArr, Dynamic Array, c DynArr, c Dynamic Array">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="index, follow">
+		
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/images/DynArr.ico">
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/images/DynArr.ico">
+		
+		<style>
+			html, body, #validcss a {
+				background-color: #b3d9ff;
+			}
+			
+			.warning {
+				display: inline-block;
+				border: 2px solid #e6b800;
+				padding: 2px;
+				border-radius: 5px;
+				margin: 5px;
+				background-color: #fffae6;
+			}
+			
+			a {
+				display: inline-block;
+				color: #003566;
+				background-color: #cce6ff;
+				border-radius: 1px;
+				padding: 1px;
+				margin: 1px;
+			}
+			
+			a:hover, .filestable tr td.link:hover, .filestable tr td.link:hover a {
+				background-color: #000080;
+				color: #66b5ff;
+			}
+			
+			code {
+				display: inline-block;
+			}
+			
+			code:hover {
+				background-color: #b3b3b3;
+			}
+			
+			.filestable tr th {
+				border: 1px solid red;
+			}
+			
+			.filestable tr td {
+				border: 1px solid black;
+			}
+			
+			.filestable tr td.link {
+				color: #003566;
+				background-color: #cce6ff;
+			}
+			
+			.filestable tr td.name {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>DynArr</h1>
+			<h2>Dynamic Array</h2>
+			<a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a>
+		</header>
+		<main>
+			<hr>
+			<div>
+				<h2>Languages / Sprachen</h2>
+				<a href="./DynArr.htm">English / Englisch - EN</a>
+				<a href="./DynArr_de.htm">German / Deutsch - DE</a>
+			</div>
+			<hr>
+			<div>
+				<h2>Table of Contents</h2>
+				<a href="#files">Files</a><br>
+				<a href="#errorhandling">Error handling</a><br>
+				<a href="#creatingadynarr">Creating a DynArr</a><br>
+				<a href="#addelementtoadynarr">Add element to a DynArr</a><br>
+				<a href="#deleteanitem">Delete an item</a><br>
+				<a href="#addanitem">Add an item</a><br>
+				<a href="#readcontentsofanelement">Read contents of an element</a><br>
+				<a href="#editthevalueofanelement">Edit the value of an element</a>
+			</div>
+			<hr>
+			<div id="files">
+				<h2>Files</h2>
+				<table class="filestable">
+					<thead>
+						<tr>
+							<th>Filename</th>
+							<th>Type</th>
+							<th>Size</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="name">dynarr.h</td>
+							<td>C header file</td>
+							<td>1.9K</td>
+							<td class="link"><a href="//test.mk16.de/scriptFiles/dynarr.h" target="_blank">test.mk16.de/scriptFiles/dynarr.h</a></td>
+						</tr>
+						<tr>
+							<td class="name">dynarr.c</td>
+							<td>C source code file</td>
+							<td>1.8K</td>
+							<td class="link"><a href="//test.mk16.de/scriptFiles/dynarr.c" target="_blank">test.mk16.de/scriptFiles/dynarr.c</a></td>
+						</tr>
+						<tr>
+							<td class="name">dynarr.i</td>
+							<td>Preprocessor file</td>
+							<td>19K</td>
+							<td class="link"><a href="//test.mk16.de/scriptFiles/dynarr.i" target="_blank">test.mk16.de/scriptFiles/dynarr.i</a></td>
+						</tr>
+						<tr>
+							<td class="name">dynarr.o</td>
+							<td>Object file</td>
+							<td>2.3K</td>
+							<td class="link"><a href="//test.mk16.de/scriptFiles/dynarr.o" target="_blank">test.mk16.de/scriptFiles/dynarr.o</a></td>
+						</tr>
+						<tr>
+							<td class="name">dynarr.s</td>
+							<td>Assembler source code</td>
+							<td>8.6K</td>
+							<td class="link"><a href="//test.mk16.de/scriptFiles/dynarr.s" target="_blank">test.mk16.de/scriptFiles/dynarr.s</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<hr>
+			<div id="errorhandling">
+				<h2>Error handling</h2>
+				<p>DynArr_init, DynArr_push, DynArr_del, DynArr_close, DynArr_at, DynArr_isopen, DynArr_pop, DynArr_edit, DynArr_insert: Returns 0 if an error occurred.</p>
+				
+				<div>
+					<p>If the DynArr has already been closed, you can check this with the function DynArr_isopen.</p>
+					<p>
+						<code>
+							DynArr_close(&amp;da);<br />
+							x = DynArr_at(&amp;da, 5);
+						</code>
+					</p>
+					<p>x is 0 because the DynArr was closed.<br>
+					To intercept the "error", you can use the function DynArr_isopen.</p>
+					<p>
+						<code>
+							if(DynArr_isopen(&amp;da))<br />
+							{<br />
+							&nbsp; &nbsp;&nbsp; x = DynArr_at(&amp;da, 5);<br />
+							}<br />
+							else<br />
+							{<br />
+							&nbsp;&nbsp;&nbsp; // Error handling<br />
+							}
+						</code>
+					</p>
+				</div>
+			</div>
+			<hr>
+			<div id="creatingadynarr">
+				<h2>Creating a DynArr</h2>
+				<p>
+					First, the header file DynArr.h must be included.<br>
+					Next up is a new type called DynArr.<br>
+					Next, you can create a new DynArr with <code>DynArr da;</code>.<br>
+					To be able to use the DynArr, it must be <em>initialized</em> with the function DynArr_init.<br>
+					<span class="warning">So that no leak occurs, the DynArr must be closed or released with the function DynArr_close, after which the DynArr can no longer be used.</span>
+				</p>
+				
+				<p>
+					<code>
+						#include &quot;DynArr.h&quot;&nbsp; /* DynArr, DynArr_init, DynArr_close */<br />
+						<br />
+						int main()<br />
+						{<br />
+						&nbsp;&nbsp;&nbsp; DynArr da;&nbsp; // Create DynArr<br />
+						&nbsp;&nbsp;&nbsp; DynArr_init(&amp;da);&nbsp; // Initialize DynArr<br />
+						<br />
+						&nbsp;&nbsp;&nbsp; // Working with the DynArr<br />
+						<br />
+						&nbsp;&nbsp;&nbsp; DynArr_close(&amp;da);&nbsp; // Close DynArr<br />
+						&nbsp;&nbsp;&nbsp; return 0;<br />
+						}
+					</code>
+				</p>
+			</div>
+			<hr>
+			<div id="addelementtoadynarr">
+				<h2>Add element to a DynArr</h2>
+				<p>
+					To add an element to a DynArr, the function DynArr_push can be used.<br>
+					The function adds the element at the end of the DynArr.<br>
+					An element should be of type int (integer).
+				</p>
+				<p>
+					<code>
+						DynArr_push(&amp;da, 102);
+					</code>
+				</p>
+				<p>
+					The integer 102 is added to the DynArr.<br>
+					The integer 102 gets the index 0.
+				</p>
+			</div>
+			<hr>
+			<div id="deleteanitem">
+				<h2>Delete an item</h2>
+				<p>
+					To delete an element, the function DynArr_del can be used.
+				</p>
+				<p>
+					<code>
+						DynArr_push(&amp;da, 102);&nbsp; // Index 0<br />
+						DynArr_push(&amp;da, 90);&nbsp; // Index 1<br />
+						DynArr_push(&amp;da, 78);&nbsp; // Index 2<br />
+						DynArr_push(&amp;da, 66);&nbsp; // Index 3<br />
+						DynArr_push(&amp;da, 54);&nbsp; // Index 4<br />
+						DynArr_push(&amp;da, 42);&nbsp; // Index 5<br />
+						<br />
+						DynArr_del(&amp;da, 3);
+					</code>
+				</p>
+				<p>
+					First, an array of 6 elements is created: [102, 90, 78, 66, 54, 42]<br>
+					Then the element with the index 3 is removed: [102, 90, 78, 54, 42]<br>
+					If the last element is to be removed, you can use the function DynArr_pop.
+				</p>
+				<p>
+					<code>DynArr_pop(&amp;da);</code>
+				</p>
+				<p>[102, 90, 78, 54]</p>
+			</div>
+			<hr>
+			<div id="addanitem">
+				<h2>Add an item</h2>
+				<p>
+					If you want to add an element to a specific index, the function DynArr_insert can be used.<br>
+					Then the element takes the place of the given index. The element that was previously in place is <em>moved</em> to the back.
+				</p>
+				<p>
+					<code>
+						DynArr_push(&amp;da, 102);&nbsp; // Index 0<br>
+						DynArr_push(&amp;da, 90);&nbsp; // Index 1<br>
+						DynArr_push(&amp;da, 78);&nbsp; // Index 2<br>
+						DynArr_push(&amp;da, 66);&nbsp; // Index 3<br>
+						DynArr_push(&amp;da, 54);&nbsp; // Index 4<br>
+						DynArr_push(&amp;da, 42);&nbsp; // Index 5<br>
+						<br>
+						DynArr_insert(&amp;da, 3, 6);<br>
+						DynArr_insert(&amp;da, 2, 7);
+					</code>
+				</p>
+				<p>[102, 90, 78, 66, 54, 42] -> [102, 90, 78, 6, 66, 54, 42] -> [102, 90, 7, 78, 6, 66, 54, 42]</p>
+			</div>
+			<hr>
+			<div id="readcontentsofanelement">
+				<h2>Read contents of an element</h2>
+				<p>
+					The contents, in the case of DynArr an integer of type int, can be read in with the function DynArr_at.
+				</p>
+				<p>
+					<code>
+						DynArr_push(&amp;da, 102);  // Index 0<br>
+						DynArr_push(&amp;da, 90);  // Index 1<br>
+						DynArr_push(&amp;da, 78);  // Index 2<br>
+						DynArr_push(&amp;da, 66);  // Index 3<br>
+						DynArr_push(&amp;da, 54);  // Index 4<br>
+						DynArr_push(&amp;da, 42);  // Index 5<br>
+						<br>
+						int x = DynArr_at(&amp;da, 4);
+					</code>
+				</p>
+				<p>
+					Calling function DynArr_at(&amp;da, 4) reads the value of the element with index 4.<br>
+					Then the value is assigned to variable x, a variable of type int.<br>
+					Thus x has the value 54.
+				</p>
+			</div>
+			<hr>
+			<div id="editthevalueofanelement">
+				<h2>Edit the value of an element</h2>
+				<p>
+					The value of an element can be changed with the function DynArr_edit.
+				</p>
+				<p>
+					<code>
+						DynArr_push(&amp;da, 102);  // Index 0<br>
+						DynArr_push(&amp;da, 90);  // Index 1<br>
+						DynArr_push(&amp;da, 78);  // Index 2<br>
+						DynArr_push(&amp;da, 66);  // Index 3<br>
+						DynArr_push(&amp;da, 54);  // Index 4<br>
+						DynArr_push(&amp;da, 42);  // Index 5<br>
+						DynArr_edit(&amp;da, 3, 6);<br>
+						<br>
+						int x = DynArr_at(&amp;da, 4);
+					</code>
+				</p>
+				<p>
+					The value 6 is assigned to the element with the index 3.
+					Thus, DynArr looks like this: [102, 90, 78, 6, 54, 42]
+				</p>
+			</div>
+		</main>
+		<footer>
+			<hr>
+			<p>Web author/Author: Marek K. | <a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></p>
+			<p id="validcss"><a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="CSS ist valide!"></a></p>
+		</footer>
+	</body>
+</html>

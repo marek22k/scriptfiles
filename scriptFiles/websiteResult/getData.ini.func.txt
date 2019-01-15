@@ -1,0 +1,28 @@
+; Name: getData.ini
+; Version: 1.0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;; STOP EDIT ;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[CONFIG]
+error_message=ERROR
+not_found_robots_txt_message=Not Found robots.txt;Not found from the file robots.txt
+
+[HTTP]
+http_port=80
+https_port=443
+method=GET
+
+[RegEx]
+humansFind=\.*link.*rel\=\"author\".*href\=\"(.*)[\/][\/](.*)\/(.*)\".*
+humansSearch=[	](.*): *(.*)
+metaFind=\<meta.*name=\"(.*)\".*content\=\"(.*)\"
+h1Find=.*\<h1\>(.*)\<\/h1\>.*
+titleFind=.*\<title\>(.*)\<\/title\>.*
+HTML_LanguageFind=\<html.*lang=\"(.*)\"(.*)\>
+shortcut_iconFind=\.*link.*rel\=\"shortcut icon\".*href\=\"(.*)\".*
+iconFind=\.*link.*rel\=\"icon\".*href\=\"(.*)\".*
+JavaScriptFind=\<script.*type\=\"text\/javascript\".*src\=\"(.*)\"\>.*\<\/script\>
+CSS0Find=\<link.*rel\=\"stylesheet\".*type\=\"text/css\".*href\=\"(.*)\".*\>
+CSS1Find=\<link.*type\=\"text/css\".*rel\=\"stylesheet\".*href\=\"(.*)\".*\>
+CSS2Find=\<link.*href\=\"(.*)\".*rel\=\"stylesheet\".*type\=\"text/css\".*\>

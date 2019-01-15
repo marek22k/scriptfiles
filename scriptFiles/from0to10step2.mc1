@@ -1,0 +1,1 @@
+for 0 10 2 {println __FOR__};

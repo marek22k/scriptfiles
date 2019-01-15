@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<title>Knobelaufgabe Schnecke</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Knobelaufgabe Schnecke; Eine Schnecke m&ouml;chte einen Baum hoch kriechen.; Der Baum ist H meter hoch.; Pro Tag, kommt die Schnecke A meter hoch.">
+		<meta name="keywords" content="Knobelaufgabe Schnecke, Schnecke Knobelaufgabe, Schnecken R&auml;tsel, Schnecke, R&auml;tsel, Knobelaufgabe">
+		<meta name="author" content="Marek K.">
+		<meta name="web_author" content="Marek K.">
+		<meta name="robots" content="index, follow">
+		
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/images/snail.ico">
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/images/snail.ico">
+		
+		<style>
+			html, body {
+				background-color: darkorange;
+			}
+		
+			header, main, footer {
+				background-color: orange;
+				padding: 10px;
+				border-radius: 10px;
+				margin-bottom: 10px;
+			}
+		
+			header *, main *, footer * {
+				margin: 0px;
+			}
+			
+			#loesung div p, #loesung div math {
+				display: none;
+			}
+			
+			#loesung:hover div p, #loesung:hover div math {
+				display: block;
+			}
+			
+			#loesung {
+				display: inline-block;
+			}
+			
+			.button {
+				border: 1px solid black;
+				border-radius: 5px;
+				background-color: green;
+				color: white;
+				display: inline-block;
+				padding: 4px;
+				padding-top: 1px;
+				padding-bottom: 1px;
+			}
+			
+			.button:hover {
+				border: 1px solid green;
+				background-color: black;
+			}
+			
+			.button:active {
+				border: 2px solid red;
+				padding: 3px;
+				padding-top: 0px;
+				padding-bottom: 0px;
+			}
+			
+			.mathe {
+				border: 1px solid black;
+				margin: 4px;
+				padding: 2px;
+				border-radius: 4px;
+				background-color: white;
+			}
+			
+			.filestable thead tr th {
+				border: 1px solid red;
+			}
+			
+			.filestable tbody tr td {
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Knobelaufgabe Schnecke</h1>
+			<a href="//mk16.de/?page=Impressum" target="_blank">Impressum</a>
+		</header>
+		<main>
+			<div id="aufgabe">
+				<h2>Knobelaufgabe</h2>
+				<p>Eine Schnecke m&ouml;chte einen Baum hoch kriechen.</p>
+				<p>Der Baum ist H meter hoch.</p>
+				<p>Pro Tag, kommt die Schnecke A meter hoch.</p>
+				<p>Pro Nacht, rutscht die Schnecke B meter runter.</p>
+				<p>Wie viele Tage D braucht die Schnecke, um den Baum hoch zu kriechen?</p>
+				<p>Dabei gilt: H > A > B</p>
+				<p class="tipp">Am Tag, an dem sie oben ist, rutscht sie nicht mehr runter.</p>
+			</div>
+			<br>
+			<div id="loesung">
+				<h2>L&ouml;sung</h2>
+				<p class="button">L&ouml;sung anzeigen</p>
+				<div>
+					<p class="mathe">(H-B)/(A-B)=D</p>
+					<math class="mathe">  
+						<mfrac>
+							<mrow>
+								<mi>H</mi>
+								<mo>-</mo>
+								<mi>B</mi>
+							</mrow>
+							<mrow>
+								<mi>A</mi>
+								<mo>-</mo>
+								<mi>B</mi>
+							</mrow>
+						</mfrac>
+						<mo>=</mo>
+						<mi>D</mi>
+					</math>
+					<p>(H-B): H wird mit B subtrahiert, weil sie(die Schnecke) an dem Tag wo die am Baumgipfel, H, erreicht hat nicht mehr runter rutscht.</p>
+					<p>(A-B): (A-B) ist die H&ouml;he, die Sie schafft, an einem Tag(Tag+Nacht) rauf zu kriechen.<br>
+					Es wird mit B subtrahiert, weil Sie Nachts wieder runter rutscht.</p>
+					<p>Dann werden die zwei Werte dividiert -> Man erh&auml;lt die Anzahl der Tage(Tage+N&auml;chte), die Sie braucht, um an den Baumgipfel zu gelangen.</p>
+				</div>
+			</div>
+			<br>
+			<div id="programm">
+				<h2>Programm</h2>
+				<table class="filestable">
+					<thead>
+						<tr>
+							<th>Filename</th>
+							<th>Size</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="//test.mk16.de/scriptFiles/snail.c" target="_blank">snail.c</a></td>
+							<td>621B</td>
+							<td>C code file</td>
+						</tr>
+						<tr>
+							<td><a href="//test.mk16.de/scriptFiles/snail.exe" target="_blank">snail.exe</a></td>
+							<td>87KB</td>
+							<td>Executable file</td>
+						</tr>
+						<tr>
+							<td><a href="//test.mk16.de/scriptFiles/snail.i" target="_blank">snail.i</a></td>
+							<td>22KB</td>
+							<td>Preprocessor file</td>
+						</tr>
+						<tr>
+							<td><a href="//test.mk16.de/scriptFiles/snail.o" target="_blank">snail.o</a></td>
+							<td>1.5KB</td>
+							<td>Object file</td>
+						</tr>
+						<tr>
+							<td><a href="//test.mk16.de/scriptFiles/snail.s" target="_blank">snail.s</a></td>
+							<td>2.3KB</td>
+							<td>Assembler source code</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</main>
+		<footer>
+			Web author/Author: Marek K. | <a href="//mk16.de/?page=Impressum" target="_blank">Impressum</a>
+		</footer>
+	</body>
+</html>

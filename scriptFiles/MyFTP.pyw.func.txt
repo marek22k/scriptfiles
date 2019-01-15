@@ -1,0 +1,76 @@
+from ftplib import FTP;
+from Tkinter import *;
+
+def ftpOutput(host, username, password, path):
+    op = '';
+    try:
+        f = FTP(host, username, password);
+        try:
+            f.login(username, password);
+        except:
+            True;
+        f.cwd(path);
+        op += ''+"\n";
+        op += ''+ f.getwelcome() +"\n";
+        op += ''+"\n";
+        op += ''+ f.pwd() +"\n";
+        op += ''+"\n";
+        data = [];
+        f.dir(data.append);
+        for line in data:
+            op += line + "\n";
+        op += ''+"\n";
+        op += ''+ f.quit();
+        f.close();
+    except:
+        op = 'ERROR';
+    return op
+
+r = Tk('MyFTPWindow','MyFTPWindow');
+r.title("MyFTP");
+r.geometry("900x500");
+
+menu1 = Menu(r);
+r.config(menu=menu1);
+
+label1 = Label(r, text='MyFTP by test.mk16.de;\nPowered by www.hundert-prozent.net;');
+label1.pack();
+
+s = Scrollbar(r);
+s.pack(side=RIGHT, fill=Y);
+t = Text(r, height=20, width=100);
+s.config(command=t.yview);
+t.pack(side=RIGHT, fill=Y);
+t.config(yscrollcommand=s.set);
+
+input1 = Entry(r);
+input1.pack();
+input1.insert(0, "host;test.mk16.de");
+
+input2 = Entry(r);
+input2.pack();
+input2.insert(0, "username;root");
+
+input3 = Entry(r);
+input3.pack();
+input3.insert(0, "password;01234");
+
+input4 = Entry(r);
+input4.pack();
+input4.insert(0, "path;/files");
+
+def startFTP():
+    x = ftpOutput(input1.get(), input2.get(), input3.get(), input4.get());
+    t.delete(1.0, END);
+    t.insert(END, x);
+
+button1 = Button(r, text="RUN", command=startFTP);
+button1.pack();
+
+mPoint1 = Menu(menu1);
+menu1.add_cascade(label="MyFTP", menu=mPoint1);
+mPoint1.add_command(label="Run", command=startFTP);
+#mPoint1.add_command(label="Delete text", command=button2_click);
+mPoint1.add_command(label="Exit", command=r.destroy);
+
+r.mainloop();

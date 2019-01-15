@@ -1,0 +1,15 @@
+﻿' The author of this program is Marek Küthe
+' Website: mk16.de
+' E-Mail: m.k@mk16.de
+
+Input NUM, "Hello User! Enter a number:", "Hello User!"
+
+If NUM<0
+Then
+Message "The number is crazy!", "Crazy"
+ElseIf mod(NUM, 2)=0
+Then
+Message "The number is good!", "Good"
+Else
+Message "The number is bad!", "Bad"
+IfEnd

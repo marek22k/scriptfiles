@@ -1,0 +1,106 @@
+// Author: Marek K.
+
+/*
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Dieses Programm ist Freie Software: Sie koennen es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veroeffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Dieses Programm wird in der Hoffnung bereitgestellt, dass es nuetzlich sein wird, jedoch
+    OHNE JEDE GEWAEHR,; sogar ohne die implizite
+    Gewaehr der MARKTFAEHIGKEIT oder EIGNUNG FUER EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fuer weitere Einzelheiten.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+
+*/
+
+
+%{
+    #include <iostream>
+    #include <cstdio>
+    #include <cstdlib>
+    #include <cmath>
+    #include <cctype>
+
+    int yylex();
+    void yyerror(char const * s);
+%}
+
+%union {
+    double val;
+}
+
+%token <val> NUM
+%left '+' '-'
+%left '*' '/' '%'
+%left NEG
+%left '^'
+
+%type <val> exp
+
+%%
+
+input:   /* empty */
+        | input line
+;
+
+line:     '\n'
+        | exp '\n'              { std::cout << '\t' << $1 << std::endl; }
+        | error '\n'            { yyerrok; }
+;
+
+exp:      NUM                   { $$ = $1; }
+        | '(' exp ')'           { $$ = $2; }
+        | '!'                   { exit(EXIT_SUCCESS); }
+        /* 1 Operand */
+        | '-' exp %prec NEG     { $$ = - $2; }
+        /* 2 Operands */
+        | exp '+' exp           { $$ = $1 + $3; }
+        | exp '-' exp           { $$ = $1 - $3; }
+        | exp '*' exp           { $$ = $1 * $3; }
+        | exp '/' exp           { $$ = $1 / $3; }
+        | exp '^' exp           { $$ = pow($1, $3); }
+        | exp '%' exp           { $$ = ((int) $1) % ((int) $3); }
+;
+
+%%
+
+int yylex()
+{
+    char c;
+    c = std::cin.get();
+
+    while(c == ' ' || c == '\t') c = std::cin.get();
+
+    if(isdigit(c) || c == '.')
+    {
+        std::cin.putback(c);
+        std::cin >> yylval.val;
+        return NUM;
+    }
+    else if(c == EOF)                            
+        return 0;
+    else
+        return c;
+}
+
+void yyerror(char const * str)
+{
+    std::cout << "Error: " << str << std::endl;
+}

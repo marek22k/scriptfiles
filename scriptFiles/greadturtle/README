@@ -1,0 +1,5 @@
+greadturtlescript is a program written by Marek K. on 28/11/2018 in the C++ programming language using C++ Boost Library and wxWidgets Libraray.
+The program is available under the GNU GPL v3.
+
+This reads out a turtlescript file and returns all variables names in a list.
+Double-clicking a variable name displays the name, content, and type of a variable.

@@ -1,0 +1,23 @@
+$
+
+The script was written by Marek K. on 08/06/2018 in the fictional programming language mc1.
+The program calculates the gcd. For this the program uses the Euclidean algorithm.
+
+;
+
+svar a = 0;
+svar b = 0;
+print "Please enter number 1: ";
+scan a;
+print "Please enter number 2: ";
+scan b;
+line;
+svar sa = @ a;
+svar sb = @ b;
+while a != b {if a > b {!a = @ a - b!}}{if a < b {!b = @ b - a!}};
+print "gcd(";
+print sa;
+print ", ";
+print sb;
+print ") = ";
+print a;

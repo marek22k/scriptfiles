@@ -1,0 +1,35 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+# Name: mainApplication
+# File: main.py
+# Version: 1.0
+# Of: 11/12/2016
+# Author: Marek Küthe
+###################################
+#  Please no edit syntax!         #
+#                                 #
+#  For run in other syntax:       #
+#  1. Import the module getData   #
+#    from getData import *        #
+#  2. Run the Module getData      #
+#    getData(website, path)       #
+#                                 #
+#   For more info please email:   #
+#   webmaster[aet]test.mk16.de    #
+###################################
+############ STOP EDIT ############
+###################################
+
+from getData import *; # import getData Module
+
+def main():
+    getData(raw_input('Website: '),raw_input('Path: '));
+    w = raw_input('');
+    try:
+        if(w.split('*')[0] == 'quit' and w.split('*')[1] == 'exit'):
+            quit();
+    except:
+        True;
+    if(w.split('*')[0] != 'quit'):
+        main();
+main();

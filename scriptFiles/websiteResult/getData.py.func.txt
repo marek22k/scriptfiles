@@ -1,0 +1,212 @@
+#!/usr/bin/python
+# -*- coding: ISO-8859-1 -*-
+# Name: getData
+# File: getData.py
+# Version: 1.0
+# Of: 11/12/2016
+# Author: Marek Küthe
+###################################
+#  Please no edit syntax!         #
+#                                 #
+#  For run in other syntax:       #
+#  1. Import the module getData   #
+#    from getData import *        #
+#  2. Run the Module getData      #
+#    getData(website, path)       #
+#                                 #
+#   For more info please email:   #
+#   webmaster[aet]test.mk16.de    #
+###################################
+############ STOP EDIT ############
+###################################
+
+import re;
+import httplib;
+import ConfigParser;
+config = ConfigParser.ConfigParser();
+config.read('getData.ini');
+
+def getWebData(website,path,ssl=False):
+    h = '';
+    if(ssl == False):
+        h = httplib.HTTPConnection(website,int(config.get('HTTP','http_port')));
+    else:
+        h = httplib.HTTPSConnection(website,int(config.get('HTTP','https_port')));
+    x = {
+        'Host':website
+    }
+    h.request(config.get('HTTP','method'),path,headers=x);
+    r = h.getresponse();
+    return [r.read(),r.status,r.reason];
+
+def getResult(website,path,data):
+    try:
+        redata = re.findall(config.get('RegEx','humansFind'),data[0]);
+        data = getWebData(redata[0][1],'/'+redata[0][2]);
+        var = re.findall(config.get('RegEx','humansSearch'),data[0]);
+        return var;
+    except:
+        return config.get('CONFIG','error_message');
+
+def getSearch(var, search):
+    for i in var:
+        if(i[0] == search):
+            return i[1];
+
+def getMeta(name, data):
+    data = data[0];
+    redata = re.findall(config.get('RegEx','metaFind'),data);
+    for i in redata:
+        if(name == i[0]):
+            return i[1];
+def getRobotsInfo(name, website):
+    try:
+        data = getWebData(website, '/robots.txt')[0];
+    except:
+        data = config.get('CONFIG','not_found_robots_txt_message').split(';')[0];
+        return config.get('CONFIG','not_found_robots_txt_message').split(';')[1];
+    redata = re.findall(r'(.*): (.*)',data);
+    r = '';
+    w = int(0);
+    for i in redata:
+        if(i[0] == name):
+             r += i[1]+"\n";
+             w += 1;
+    return [r,str(w)];
+    
+def getData(website, path, ssl=False, webData=False):
+    if(webData == False):
+        webData = getWebData(website,path,ssl);
+    result = getResult(website, path, webData);
+    sitemap = getRobotsInfo('Sitemap',website);
+    allow = getRobotsInfo('Allow',website);
+    disallow = getRobotsInfo('Disallow',website);
+    author = getMeta('author', webData);
+    web_author = getMeta('web_author', webData);
+    ds = getMeta('description', webData);
+    h1 = re.findall(config.get('RegEx','h1Find'),webData[0]);
+    title = re.findall(config.get('RegEx','titleFind'),webData[0]);
+    shortcut_icon = '';
+    icon = '';
+    try:
+        shortcut_icon = re.findall(config.get('RegEx','shortcut_iconFind'),webData[0])[0];
+    except:
+        True;
+    try:
+        icon = re.findall(config.get('RegEx','iconFind'),webData[0])[0];
+    except:
+        True;
+    if(icon == None):
+        icon = 'None';
+    if(shortcut_icon == None):
+        shortcut_icon = 'None';
+    try:
+        tit = title[0];
+    except:
+        True;
+    for i in h1:
+        tit += ' - '+str(i);
+    js = '';
+    jss = re.findall(config.get('RegEx','JavaScriptFind'),webData[0]);
+    w = int(0);
+    for i in jss:
+        js += i.replace('" language="Javascript','')+"\n";
+        w += 1;
+    js += str(w)+' JavaScirpts'
+
+    
+    css = '';
+    w = int(0);
+    
+    csss = re.findall(config.get('RegEx','CSS0Find'),webData[0]);
+    for i in csss:
+        css += i.replace('" media="(min-width: 640px)','').replace('" media="(max-width: 640px)','')+"\n";
+        w += 1;
+
+    csss = re.findall(config.get('RegEx','CSS1Find'),webData[0]);
+    for i in csss:
+        css += i.replace('" media="(min-width: 640px)','').replace('" media="(max-width: 640px)','')+"\n";
+        w += 1;
+
+    csss = re.findall(config.get('RegEx','CSS2Find'),webData[0]);
+    for i in csss:
+        css += i.replace('" media="(min-width: 640px)','').replace('" media="(max-width: 640px)','')+"\n";
+        w += 1;
+        
+    css += str(w)+' CSS'
+    
+    last_updata = getSearch(result,'Last update');
+    doctype = getSearch(result,'Doctype');
+    standards = getSearch(result,'Standards');
+    languages = getSearch(result,'Language');
+    language = re.findall(config.get('RegEx','HTML_LanguageFind'),webData[0]);
+    try:
+        language = language[0][0].split('"')[0];
+    except:
+        language = str(language);
+    contact = getSearch(result,'Contact');
+    web_designer = getSearch(result,'Web designer');
+    chef = getSearch(result,'Chef');
+
+    vp = str('');
+    
+    try: vp += 'Title: '+tit+"\n";
+    except: True;
+    
+    try: vp += 'Languages: '+language+"\n";
+    except: True;
+    
+    try: vp += 'Author: '+author+"\n";
+    except: True;
+    
+    try: vp += 'Web author: '+web_author+"\n";
+    except: True;
+    
+    try: vp += 'Description: '+ds+"\n";
+    except: True;
+    
+    try: vp += 'Shortcut icon: '+shortcut_icon+"\n";
+    except: True;
+    
+    try: vp += 'Icon: '+icon+"\n";
+    except: True;
+    
+    try: vp += 'JavaScripts: '+"\n"+js+"\n";
+    except: True;
+    
+    try: vp += 'CSS: '+"\n"+css+"\n";
+    except: True;
+    
+    try: vp += 'Sitemaps(robots.txt): '+"\n"+sitemap[0]+sitemap[1]+' Sitemaps'+"\n";
+    except: True;
+    
+    try: vp += 'Allow(robots.txt): '+"\n"+allow[0]+allow[1]+' Allow Objects'+"\n";
+    except: True;
+    
+    try: vp += 'Disallow(robots.txt): '+"\n"+disallow[0]+disallow[1]+' Disallow Objects'+"\n";
+    except: True;
+    
+    try: vp += 'Chef(humans.txt): '+chef+"\n";
+    except: True;
+    
+    try: vp += 'Last updata(humans.txt): '+last_updata.split('/')[2]+'.'+last_updata.split('/')[1]+'.'+last_updata.split('/')[0]+"\n";
+    except: True;
+    
+    try: vp += 'Web designer(humans.txt): '+web_designer+"\n";
+    except: True;
+    
+    try: vp += 'Contact(humans.txt): '+contact+"\n";
+    except: True;
+    
+    try: vp += 'Languages(humans.txt): '+languages+"\n";
+    except: True;
+    
+    try: vp += 'Standards(humans.txt): '+standards+"\n";
+    except: True;
+    
+    try: vp += 'Document type(humans.txt): '+doctype+"\n";
+    except: True;
+
+    vp += 'Next'+"\n\n";
+    print(vp);
+    return vp;

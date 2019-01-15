@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator</title>
+    <!-- A Calculator from M. K. m.k[aet]mk16[dot].de -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script type="text/javascript" src="//mk16.de/System/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        var res = 0;
+        var tmp1 = 0;
+        var tmp2 = "nil";
+
+        var AddNumberToResult = function(event) {
+            if (tmp2 != "nil") {
+                tmp1 = parseFloat($("#resultBox").val() + event.target.id.replace("button", "").toString());
+                $("#resultBox").val(tmp1);
+            } else {
+                res = parseFloat($("#resultBox").val() + event.target.id.replace("button", "").toString());
+                $("#resultBox").val(res);
+            }
+        }
+
+        $(function() {
+
+            $("#buttonK").click(function() {
+                $("#resultBox").val($("#resultBox").val() + ".");
+            });
+            $("#buttonBack").click(function() {
+                if ($("#resultBox").val().length == 1) {
+                    if (tmp2 != "nil") {
+                        tmp1 = 0.0;
+                        $("#resultBox").val(tmp1);
+                    } else {
+                        res = 0.0;
+                        $("#resultBox").val(res);
+                    }
+                } else {
+                    if (tmp2 != "nil") {
+                        tmp2 = parseFloat(tmp2.toString().substr(0, tmp2.toString().length - 1));
+                        $("#resultBox").val(tmp2);
+                    } else {
+                        res = parseFloat(res.toString().substr(0, res.toString().length - 1));
+                        $("#resultBox").val(res);
+                    }
+                }
+            });
+            $("#buttonTypeInput").click(function() {
+                if (tmp2 != "nil") {
+                    tmp1 = parseFloat(prompt("Please type a number in the field:", tmp1).toString());
+                    $("#resultBox").val(tmp1);
+                } else {
+                    res = parseFloat(prompt("Please type a number in the field:", res).toString());
+                    $("#resultBox").val(res);
+                }
+            });
+            $("#buttonC").click(function() {
+                res = 0;
+                tmp1 = 0;
+                tmp2 = "nil";
+                $("#resultBox").val("0");
+            });
+            $("#buttonSQRT").click(function() {
+                res = Math.sqrt(res);
+                $("#resultBox").val(res);
+            });
+            $("#buttonCBRT").click(function() {
+                res = Math.cbrt(res);
+                $("#resultBox").val(res);
+            });
+            $("#buttonP2").click(function() {
+                res = Math.pow(res, 2);
+                $("#resultBox").val(res);
+            });
+            $("#buttonP3").click(function() {
+                res = Math.pow(res, 3);
+                $("#resultBox").val(res);
+            });
+            $("#buttonA").click(function() {
+                tmp2 = "+";
+                $("#resultBox").val("0");
+            });
+            $("#buttonS").click(function() {
+                tmp2 = "-";
+                $("#resultBox").val("0");
+            });
+            $("#buttonM").click(function() {
+                tmp2 = "*";
+                $("#resultBox").val("0");
+            });
+            $("#buttonD").click(function() {
+                tmp2 = "/";
+                $("#resultBox").val("0");
+            });
+            $("#buttonMod").click(function() {
+                tmp2 = "%";
+                $("#resultBox").val("0");
+            });
+            $("#buttonR").click(function() {
+                var num1 = res;
+                var num2 = parseFloat($("#resultBox").val());
+                var ret = 0;
+                if (tmp2 == "+") {
+                    ret = num1 + num2;
+                }
+                if (tmp2 == "-") {
+                    ret = num1 - num2;
+                }
+                if (tmp2 == "*") {
+                    ret = num1 * num2;
+                }
+                if (tmp2 == "/") {
+                    ret = num1 / num2;
+                }
+                if (tmp2 == "%") {
+                    ret = num1 - (parseInt(num1 / num2) * num2);
+                }
+                tmp1 = 0;
+                tmp2 = "nil";
+                res = ret;
+                $("#resultBox").val(res);
+            });
+            $("#button0, #button1, #button2, #button3, #button4, #button5, #button6, #button7, #button8, #button9").click(AddNumberToResult);
+            $("#bgcolor").on("change", function() {
+                $(".inputButton").css("background-color", $("#bgcolor").val());
+            });
+            $("#color").on("change", function() {
+                $(".inputButton").css("color", $("#color").val());
+            });
+            $(".inputButton").css("background-color", $("#bgcolor").val());
+            $(".inputButton").css("color", $("#color").val());
+        });
+    </script>
+
+    <style type="text/css">
+        #content {
+            border: 1px solid black;
+            display: inline-block;
+        }
+        
+        #resultBox {
+            margin: 2px;
+            padding: 2px;
+            background-color: #C9C9C9;
+            border: 1px solid gray;
+        }
+        
+        #resultBox:hover,
+        #resultBox:focus {
+            background-color: #B9B9B9;
+            border: 1px solid black;
+        }
+        
+        #sig {
+            margin: 2px;
+            margin-left: 3.8px;
+            padding: 0.4px;
+            display: inline-block;
+            color: blue;
+            text-decoration: none;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        #sig:hover {
+            color: red;
+        }
+        
+        .inputButton {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            border: 1px solid black;
+            padding: 0px;
+            margin: 1px;
+            background-color: #578673;
+            color: white;
+            cursor: grab;
+        }
+        
+        .inputButton:active {
+            cursor: grabbing;
+        }
+        
+        .colorInput {
+            background-color: white;
+            border: none;
+            padding: 1px;
+            margin: 2px;
+            margin-top: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="outputResult"><input type="text" id="resultBox" value="0" readonly></div>
+        <div id="inputKey">
+            <button id="buttonC" class="inputButton">C</button>
+            <button id="buttonTypeInput" class="inputButton">IN</button>
+            <button id="buttonBack" class="inputButton">&lt;-</button> <button id="buttonD" class="inputButton">&#247;</button> <br />
+            <button id="button7" class="inputButton">7</button> <button id="button8" class="inputButton">8</button> <button id="button9" class="inputButton">9</button> <button id="buttonM" class="inputButton">&#8727;</button> <br />
+            <button id="button4" class="inputButton">4</button> <button id="button5" class="inputButton">5</button> <button id="button6" class="inputButton">6</button> <button id="buttonS" class="inputButton">&#8722;</button> <br />
+            <button id="button1" class="inputButton">1</button> <button id="button2" class="inputButton">2</button> <button id="button3" class="inputButton">3</button> <button id="buttonA" class="inputButton">+</button> <br />
+            <button id="buttonK" class="inputButton">.</button> <button id="button0" class="inputButton">0</button> <button id="buttonR" class="inputButton">=</button> <button id="buttonMod" class="inputButton">%</button> <br />
+            <button id="buttonSQRT" class="inputButton">&#8730;</button> <button id="buttonCBRT" class="inputButton">&#8731;</button> <button id="buttonP2" class="inputButton">&sup2;</button> <button id="buttonP3" class="inputButton">&sup3;</button> <br
+            />
+            <input type="color" id="bgcolor" class="colorInput" value="#578673" />
+            <input type="color" id="color" class="colorInput" value="#ffffff" /><br />
+            <span id="sig">from mk16.de</span>
+        </div>
+    </div>
+</body>
+
+</html>

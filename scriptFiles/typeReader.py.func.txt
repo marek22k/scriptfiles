@@ -1,0 +1,38 @@
+#!/usr/bin/python
+# -*- coding: ISO-8859-1 -*-
+###################################
+# Name: typeReader
+# File: typeReader.py
+# Version: 1.0
+# Of: 17/12/2016
+# Author: Marek Küthe
+###################################
+# from typeReader import typeReader
+# STOP EDIT
+###################################
+settings = [80,443,'GET'];
+###################################
+import httplib;
+import re;
+
+def typeReader_getWebData(website,path,ssl=False):
+    h = '';
+    if(ssl == False):
+        h = httplib.HTTPConnection(website,int(settings[0]));
+    else:
+        h = httplib.HTTPSConnection(website,int(settings[1]));
+    x = {
+        'Host':website
+    }
+    h.request(settings[2],path,headers=x);
+    r = h.getresponse();
+    return [r.read(),r.status,r.reason];
+
+def typeReader(website='test.mk16.de', path='/', ssl=False):
+    data = typeReader_getWebData(website, path, ssl);
+    data = data[0].replace(' ','').replace('	','');
+    read = re.findall('\|(.*)\:(.*)\|', data);
+    result = '[typeReader]'+"\n";
+    for i in read:
+        result += i[0]+'='+i[1]+"\n";
+    return result;

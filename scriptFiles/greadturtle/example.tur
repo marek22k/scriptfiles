@@ -1,0 +1,8 @@
+integer@test = 22;
+string@happy = "chrismas";
+boolean@yes = true;
+float@komma = 5.5;
+bignum@verybig = 44444;
+byte@b = 345;
+# test;
+byte@bb = $b;

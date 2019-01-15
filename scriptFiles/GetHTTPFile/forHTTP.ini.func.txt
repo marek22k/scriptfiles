@@ -1,0 +1,7 @@
+[DATA]
+localfile=D:\test.mk16.de.html
+
+server=test.mk16.de
+port=80
+method=GET
+path=/

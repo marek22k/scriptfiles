@@ -1,0 +1,8 @@
+@echo off
+@echo off
+cls
+
+bfinterpreter.exe %1%
+
+pause
+exit

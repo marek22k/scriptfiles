@@ -1,0 +1,5 @@
+prime(n) = true
+n = 2^x-1 => integer(log(n+1, 2)) = true
+
+Mersenne primes(0 - 100000000):
+3, 7, 31, 127, 8191, 131071, 524287

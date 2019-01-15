@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+# The author of this program is Marek Küthe
+# Website: mk16.de
+# E-Mail: m.k@mk16.de
+
+print "Hello User! Enter a number:\n";
+
+$num = <STDIN> + 0;
+
+if($num < 0) {
+	print "The number ist crazy!\n";
+} elsif($num%2 == 0) {
+	print "The number is good!\n"
+} else {
+	print "The number is bad!\n"
+}

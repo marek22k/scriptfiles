@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+==========================
+| page:     test.mk16.de |
+| name:     Allocate Gem |
+| language: en           |
+| type:     Reference    |
+| version:  1.0          |
+==========================
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Allocate Gem</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Allocate Reference" />
+		<meta name="keywords" content="Allocate reference, Allocate reference, Allocate reference" />
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/images/reference.ico" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/images/reference.ico" />
+		
+		<style type="text/css">
+			table tr th {
+				background-color: maroon;
+				color: white;
+			}
+			
+			table tr td, table tr th {
+				border: 1px solid black;
+			}
+			
+			table tr td p {
+				display: inline;	
+			}
+			
+			code {
+				border: 1px solid gray;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>Allocate Gem</h1>
+			
+			<a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a>
+			<script>alert("Bald verfuegbar!");</script>
+			<div>
+				<h2>Files</h2>
+				
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th>File</th>
+								<th>Download</th>
+								<th>Size</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Allocate-1.0.2.gemspec</td>
+								<td><a href="//test.mk16.de/scriptFiles/Allocate-1.0.2.gemspec" target="_blank">test.mk16.de/scriptFiles/Allocate-1.0.2.gemspec</a></td>
+								<td>751 Bytes(B)</td>
+								<td>Ruby Gem Specification</td>
+							</tr>
+							<tr>
+								<td>Allocate.rb</td>
+								<td><a href="//test.mk16.de/scriptFiles/Allocate.rb" target="_blank">test.mk16.de/scriptFiles/Allocate.rb</a></td>
+								<td>4.5 KiloBytes(KB)</td>
+								<td>Ruby file</td>
+							</tr>
+							<tr>
+								<td>Allocate-1.0.2.gem</td>
+								<td><a href="//test.mk16.de/scriptFiles/Allocate-1.0.2.gem" target="_blank">test.mk16.de/scriptFiles/Allocate-1.0.2.gem</a></td>
+								<td>6.0 KiloBytes(KB)</td>
+								<td>Ruby Gem</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div>
+				<h2>Classes</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+							<th>Methods</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Allocate</td>
+							<td>(Intel) Hex data records</td>
+							<td>initialize, interpret, reset_address!, push_user, delete_data!, clear!, max_index?, data_end?, checksum?, ascii, push_end, push</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<h2>Class Allocate Methods</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Method</th>
+							<th>Argument 1</th>
+							<th>Return</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>initialize</td>
+							<td>The (Intel) hex data to be read or edited. Default: []</td>
+							<td>None</td>
+							<td>Initalies the cash register Allocate</td>
+						</tr>
+						<tr>
+							<td>interpret</td>
+							<td>None</td>
+							<td>None</td>
+							<td>Evaluate the (Intel) Hex data (interpretation) and make it available for reading.</td>
+						</tr>
+						<tr>
+							<td>reset_address!</td>
+							<td>None</td>
+							<td>None</td>
+							<td>Resets the write address to the default value (16).</td>
+						</tr>
+						<tr>
+							<td>push_user</td>
+							<td>None</td>
+							<td>None</td>
+							<td>Writes a string passed by the user to the data.</td>
+						</tr>
+						<tr>
+							<td>delete_data!</td>
+							<td>None</td>
+							<td>None</td>
+							<td>The string to be written.</td>
+						</tr>
+						<tr>
+							<td>clear!</td>
+							<td>None</td>
+							<td>None</td>
+							<td>Resets the hex data. All saved hex data will be deleted. Then Allocate is ready to write.</td>
+						</tr>
+						<tr>
+							<td>max_index?</td>
+							<td>None</td>
+							<td>The number of records.</td>
+							<td>Returns the number of records.</td>
+						</tr>
+						<tr>
+							<td>data_end?</td>
+							<td>None</td>
+							<td>The index of the first element where an "End of file"-mark was detected.</td>
+							<td>Returns the index of the first record that detected an "End of File" markup.</td>
+						</tr>
+						<tr>
+							<td>checksum?</td>
+							<td>The index of the record from which the checksum is to be read. Default: 0</td>
+							<td>The read checksum</td>
+							<td>Reads the checksum of a record.</td>
+						</tr>
+						<tr>
+							<td>ascii</td>
+							<td>The index of the record to be read. If all is to be read out, nil can be transferred. Default: nil</td>
+							<td>The result of all records, if no index was specified, otherwise only the result of the record from which the index was specified.</td>
+							<td>Reads the result, the ASCII / ANSI text, the evaluation (interpretation).</td>
+						</tr>
+						<tr>
+							<td>push_end</td>
+							<td>None</td>
+							<td>None</td>
+							<td>Writes the "End of file" mark. This is appended to the end of the records.</td>
+						</tr>
+						<tr>
+							<td>push</td>
+							<td>The text to be written to the records.</td>
+							<td>None</td>
+							<td>Write a user-entered text to the records as (Intel) Hex.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<h2>Class Allocate Variables</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Variable</th>
+							<th>Description</th>
+							<th>Access</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>push_address</td>
+							<td>The current write address</td>
+							<td>r/w</td>
+						</tr>
+						<tr>
+							<td>enddef</td>
+							<td>The "End of file" mark</td>
+							<td>r/w</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<p>
+					With Allocate you can write or read (Intel) Hex data.<br />
+					If you want to read data with Allocate, you can pass an array as an argument when creating the class.<br />
+					Each element of the array should contain an (Intel) hex code.<br />
+					So if you want to read a file you can use <code>File.read("filename").split("\n")</code> as code.<br />
+					If you pass this code as an argument, it will generate the array that will be passed.<br />
+					First the file is read, then each line of the file becomes an element of the array.<br />
+					If you want to write (Intel) hex data, you can either pass nothing as an argument or you pass an empty array.<br />
+					An evaluation of the data can be achieved by calling the class method .interpret.<br />
+					This does not demand arguments.<br />
+					If you want to write data now you can use the class method .push.<br />
+					At this one gives as argument the text to be written (actually ASCII, it goes however also ANSI signs).<br />
+					At the end of the writing, you should call the class method .push_end.<br />
+					This demands nothing as an argument. The class method inserts the data for the end of a file, that is, the total amount of data.
+				</p>
+				
+				<p><a href="https://en.wikipedia.org/wiki/Intel_HEX" target="_blank">Wikipeida(Intel Hex)</a></p>
+				
+				<p>
+					Allocate Gem is available under the GNU General Public License v3.0<br />
+					License: <a href="/scriptFiles/COPYING" target="_blank">test.mk16.de/scriptFiles/COPYING</a>, <a href="https://www.gnu.org/licenses/" target="_blank">www.gnu.org/licenses/</a>
+				</p>
+			</div>
+			
+			<div>
+				<h2>Example</h2>
+				<code>
+					require "Allocate"<br />
+					hex = Allocate.new [":04001000746573742C", ":0D00000048656C6C6F20576F726C642100B6", ":10004000404142434445464748494A4B4C4D4E4F38", ":00000001FF"]  # Open to read<br />
+hex.interpret  # Interpret data<br />
+p hex.ascii  # return string result of the interpret<br />
+p hex.checksum  # return checksum from the first data<br />
+p hex.checksum 1 # return checksum from the second data<br />
+<br />
+hex = Allocate.new  # Open to write/read<br />
+hex.push "test"  # Write "test"<br />
+hex.push_end  # Write End of File<br />
+hex.interpret  # Interpret data<br />
+p hex.ascii 0 # return string result of the interpret of the first data
+				</code>
+				<p>
+					Output: "testHello World!\u0000@ABCDEFGHIJKLMNO"<br />
+					44<br />
+					182<br />
+					"test"
+				</p>
+			</div>
+		</div>
+		<div id="footer">
+			<table>
+				<tbody>
+					<tr>
+						<td>Web author/Author: Marek K.</td>
+						<td><a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><p><a href="http://validator.w3.org/check?uri=https%3A%2F%2Ftest.mk16.de%2Fprojects%2Fluaapi-gem.xhtml" target="_blank"><img src="https://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a></p></td>
+						<td><p><a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="CSS is valid!" /></a></p></td>
+						<td><p><a href="https://rubygems.org/gems/Allocate" target="_blank"><img src="/images/Allocate-1.0.2_badge.png" alt="Gem 1.0.2" /></a><br />
+							<a href="//rubygems.mk16.de/?gem=Allocate" target="_blank">Allocate on rubygems.mk16.de</a></p></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

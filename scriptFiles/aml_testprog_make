@@ -1,0 +1,10 @@
+CC      = g++
+CFLAGS  = -Wall -Wextra -Wpedantic -O3
+LFLAGS  = -llua
+OUT     = aml_testprog.exe
+
+prog: aml_testprog.o
+	$(CC) aml_testprog.o $(LFLAGS) -o $(OUT)
+
+main.cpp:
+	$(CC) aml_testprog.cpp -o aml_testprog.o $(CFLAGS)

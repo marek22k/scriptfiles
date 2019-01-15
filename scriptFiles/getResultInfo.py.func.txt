@@ -1,0 +1,49 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+# Name: getResultInfo
+# Version: 1.0
+
+import httplib;
+
+def getResult(name,ssl=False,host='test.mk16.de',path='/',method='GET',contentType='text/html',ncoding='ISO-8859-1',RegEx=r'\|(.*):(.*)\|'):
+    import re;
+    import httplib;
+    h = '';
+    if(ssl == True):
+        h = httplib.HTTPSConnection(host,80);
+    else:
+        h = httplib.HTTPConnection(host,80);
+
+    x = {
+        'Host':host,
+        'Content-Type':contentType + '; charset=' + ncoding,
+        'User-Agent':'InfoBot/1.0'
+    };
+    h.request(method,path,headers=x);
+    r = h.getresponse();
+    data = r.read();
+    data = data.replace(' ','');
+    result = re.findall(RegEx, data);
+    for i in result:
+        if(i[0] == name):
+            return i[1];
+def showResult(host,path,ssl=False):
+    print(str(getResult('name',ssl,host,path) + ' v' + getResult('version',ssl,host,path) + ' on ' + getResult('page',ssl,host,path) + ' in the language ' + getResult('language',ssl,host,path)));
+def showData():
+    showResult('test.mk16.de','/');
+    showResult('test.mk16.de','/test.html');
+    showResult('test.mk16.de','/scriptFiles/');
+    showResult('memory.mk16.de','/');
+    showResult('mk16.de','/');
+def main():
+    x = raw_input('_');
+    y = x.split('(');
+    if(y[0] == 'index'):
+        if(y[1] == 'all)'):
+            showData();
+        else:
+            z = y[1].replace(')','').replace('\'','').replace('"','').split(',');
+            showResult(z[0], z[1]);
+    if(x != 'exit'):
+        main();
+main();

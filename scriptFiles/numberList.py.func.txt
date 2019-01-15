@@ -1,0 +1,7 @@
+# -*- coding: UTF-8
+# Name: numberList
+# Version: 1.0
+def numberList(n, v=0):
+	for i in range(v, n):
+		print i;
+	print "A number list by test.mk16.de";

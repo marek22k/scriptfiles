@@ -1,0 +1,3 @@
+[MarkupLanguage]
+commantstart=/*
+commantend=*/

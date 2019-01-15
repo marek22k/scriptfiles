@@ -1,0 +1,26 @@
+mmemory.h
+=========
+
+The file mptrdef.h was written on 28/04/2018 by Marek K. in the programming language C/C++.
+
+Macros:
+MMEMORY_H              --- Value: None
+MMEMORY_ARR(num, type) --- calculates the number of bytes in an array of num elements and from the data type type.
+MMEMORY_GET            --- in this type be the number of bytes to the functions passed.
+MMEMORY_BR             --- the return type a function.
+
+Functions:
+
+MMEMORY_BR memnew(void **, MMEMORY_GET);
+calls memory to
+Argument 1: the address of the pointer in those who address of the memory area copied to be.
+Argument 2: the number of bytes how large the memory area supposed to be.
+
+MMEMORY_BR memdel(void **);
+is a storage area free.
+Argument 1: the address of the pointer, which the address of the storage area contains the released to be.
+
+MMEMORY_BR memedi(void **, MMEMORY_GET);
+change the size of a memory area
+Argument 1: the pointer, which the address of the to changes in memory area contains
+Argument 2: the new size in bytes

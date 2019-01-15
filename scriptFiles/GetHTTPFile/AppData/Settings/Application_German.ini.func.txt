@@ -1,0 +1,20 @@
+; Translate by test.mk16.de
+; Language: German
+;
+; UEbersetzung ist von der Webseite test.mk16.de
+; Sprache: Deutsch
+
+[Application]
+ico=AppData/Images/icoStyle8.ico
+size=195x95
+
+[Application_Button]
+color=Red
+bgcolor=Yellow
+border=0
+text=Los
+
+[Application_Menu]
+pointtext=Daten
+runtext=Los
+exittext=Beenden/Verlassen

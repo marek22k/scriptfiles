@@ -1,0 +1,29 @@
+mptrdef.h
+=========
+
+The file mptrdef.h was written on 28/04/2018 by Marek K. in the programming language C/C++.
+
+Types:
+cptr  --- char pointer
+iptr  --- integer pointer
+lptr  --- long integer pointer
+sptr  --- short integer pointer
+ucptr --- unsigned char pointer
+uiptr --- unsigned integer pointer
+ulptr --- unsigned long integer pointer
+usptr --- unsigned integer pointer
+dptr  --- double pointer
+fptr  --- float pointer
+vptr  --- void pointer
+If the type bool is defined:
+bptr  --- bool pointer
+If the type _Bool is defined:
+_bptr --- _Bool pointer
+
+Macros:
+MPTRDEF_H             --- Value: None
+MPTRDEF_CONVERT(type) --- Convert x pointer to type pointer
+If the type bool is defined:
+MPTRDEF_BOOL          --- Value: 1
+If the type _Bool is defined:
+MPTRDEF__BOOL         --- Value: 1

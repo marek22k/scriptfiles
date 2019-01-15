@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Numbers (Part 1)</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="primenum.c, laylandnum.c, gcdea.c" />
+		<meta name="keywords" content="primenum.c, laylandnum.c, gcdea.c, prime numbers, layland number, gcd, Euclidean algorithm" />
+		<meta name="author" content="Marek K." />
+		<meta name="robots" content="index, follow" />
+		
+		<link rel="icon" type="image/png" href="/images/numbers_1.ico" />
+		<link rel="shortcut icon" type="image/png" href="/images/numbers_1.ico" />
+		
+		<style>
+			html, body {
+				background-color: darkorange;
+				font-family: Arial;
+			}
+			
+			header, main, footer {
+				background-color: orange;
+				padding: 10px;
+				border-radius: 10px;
+				margin-bottom: 15px;
+			}
+			
+			header *, main *, footer * {
+				margin: 0px;
+			}
+			
+			.subcontent {
+				margin-bottom: 10px;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Numbers</h1>
+			<h2>Part 1</h2>
+		</header>
+		<main>
+			<div id="imprintdiv">
+				<a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a>
+			</div>
+			<div id="maincontent">
+				<div class="subcontent">
+					<a href="/scriptFiles/primenum.c" target="_blank">primenum.c</a>
+					<p>The isPrime function checks if it is a prime and returns a value of truth (0 = no prime, 1 = prime).</p>
+					<p>As a parameter, it asks for the number to be checked.</p>
+					<p>Die Funktion isPrime pr&uuml;ft ob es sich um eine Primzahl handelt und gibt einen Wahrheitswert zur&uuml;ck(0 = Keine Primzahl; 1 = Primzahl).</p>
+					<p>Als Parameter, fordert sie die zu pr&uuml;fende Zahl.</p>
+					<code><pre>
+_Bool isPrime(int num)
+{
+    if(num == 0 || num == 1) return 0;
+    for(int i = 2; i &lt; num; i++)
+        if(num % i == 0) return 0;
+    return 1;
+}</pre>
+</code>
+				</div>
+				<div class="subcontent">
+					<a href="/scriptFiles/laylandnum.c" target="_blank">laylandnum.c</a>
+					<p>The isLayland function checks if it is a Leyland number and returns a truth value (0 = no Leyland number, 1 = Leyland number).</p>
+					<p>As a parameter, it asks for the number to be checked.</p>
+					<p>Die Funktion isLayland pr&uuml;ft ob es sich um eine Leyland Zahl handelt und gibt einen Wahrheitswert zur&uuml;ck(0 = Keine Leyland Zahl; 1 = Leyland Zahl).</p>
+					<p>Als Parameter, fordert sie die zu pr&uuml;fende Zahl.</p>
+					<code><pre>
+_Bool isLeyland(int num, _Bool op)
+{
+    for(int i = 2; i &lt; num; i++)
+        for(int j = 2; j &lt; num; j++)
+        {
+            if(pow(i, j) + pow(j, i) == num)
+            {
+                if(op) printf(&quot;%d = %d^%d + %d^%d&quot;, num, i, j, j, i);
+                return 1;
+            }
+        }
+    return 0;
+}</pre></code>
+				</div>
+				<div class="subcontent">
+					<a href="/scriptFiles/gcdea.c" target="_blank">gcdea.c</a>
+					<p>The function eucalg (Euclidean algorithm) uses the Euclidean algorithm to calculate the gcd(greatest common divisor) and returns the result.</p>
+					<p>As a parameter, the function requires the two numbers at which the gcd should be calculated.</p>
+					<p>Die Funktion eucalg(Euclidean algorithm) berechnet mittels dem euklidischen Algorithmus den ggT(gr&ouml;ßte gemeinsame Teiler) und gibt das Resultat zur&uuml;ck.</p>
+					<p>Als Parameter fordert die Funktion, die zwei Zahlen, bei den der ggT berechnet werden soll.</p>
+					<code><pre>
+int eucalg(int a, int b)
+{
+    if(a == b || a == 0) return b;
+    else if(b == 0) return a;
+
+    while(a != b)
+    {
+        if(a &gt; b) a -= b;
+        else b -= a;
+    }
+    return a;
+}</pre></code>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a> |
+			Web author/Author: Marek K.
+		</footer>
+	</body>
+</html>

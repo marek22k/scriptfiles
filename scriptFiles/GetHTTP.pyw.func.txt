@@ -1,0 +1,69 @@
+import httplib;
+from Tkinter import *;
+
+r = Tk('GetHTTPWindow','GetHTTPWindow');
+r.title("GetHTTP");
+r.geometry("900x500");
+
+menu1 = Menu(r);
+r.config(menu=menu1);
+
+label1 = Label(r, text='GetHTTP by test.mk16.de;\nPowered by www.hundert-prozent.net;');
+label1.pack();
+
+s = Scrollbar(r);
+s.pack(side=RIGHT, fill=Y);
+t = Text(r, height=20, width=100);
+s.config(command=t.yview);
+t.pack(side=RIGHT, fill=Y);
+t.config(yscrollcommand=s.set);
+
+input1 = Entry(r);
+input1.pack();
+input1.insert(0, "test.mk16.de:80");
+
+input2 = Entry(r);
+input2.pack();
+input2.insert(0, "GET /");
+
+input3 = Entry(r);
+input3.pack();
+input3.insert(0, "text/html");
+
+def goHTTP():
+    op = '';
+    try:
+        i1 = input1.get().split(':');
+        i2 = input2.get().split(' ');
+        x = {
+            'Host':i1[0],
+            'Content-Type':input3.get()
+        }
+        h = httplib.HTTPConnection(i1[0],i1[1]);
+        h.request(i2[0],i2[1],headers=x);
+        r = h.getresponse();
+        op += str(r.status)+' '+r.reason+"\n\n";
+        if r.status == 301:
+            y = i1[0].split('.');
+            if y[0] == 'www':
+                z = i1[0].replace('www.','');
+                op += "ERROR: "+i1[0]+' TO '+z+"\n\n"
+            else:
+                op += "ERROR: "+i1[0]+' TO www.'+i1[0]+"\n\n"
+        data = r.read();
+        op += data;
+        h.close();
+    except:
+        op = "ERROR\nHelp E-Mail: webmaster@test.mk16.de";
+    t.delete(1.0, END);
+    t.insert(END, op);
+
+button1 = Button(r, text="RUN", command=goHTTP);
+button1.pack();
+
+mPoint1 = Menu(menu1);
+menu1.add_cascade(label="Data", menu=mPoint1);
+mPoint1.add_command(label="Run", command=goHTTP);
+mPoint1.add_command(label="Exit", command=r.destroy);
+
+r.mainloop();

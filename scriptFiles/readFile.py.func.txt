@@ -1,0 +1,15 @@
+# -*- coding: UTF-8 -*-
+
+'''
+    This function readFile(file) is by test.mk16.de
+
+    Name: readFile(file)
+    Version: 1.0
+    Coding: UTF-8
+    By: test.mk16.de
+'''
+
+def readFile(file):
+	f = open(file, 'r')
+	print(f.read())
+	f.close()

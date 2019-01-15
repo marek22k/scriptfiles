@@ -1,0 +1,9 @@
+To build on Windows, run build.bat as the first argument to the wxWidgets path and as a second argument the C ++ Boost Library path:
+
+for Example: build.bat E:\wxWidgets-3.1.1\ E:\boost_1_55_0\
+
+
+If you want to build greadturtle on another system you have to build greadturtle.cpp and turtlescript.cpp.
+For this the header files are necessary.
+turtlescript.cpp contains the data to read the Turtlescript.
+greadturtle mainly contains GUI data.

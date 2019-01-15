@@ -1,0 +1,5 @@
+AuthUserFile /www/htdocs/w0149194/test.mk16.de/scriptFiles/usage/.htpasswd
+AuthGroupFile /dev/null
+AuthName 'ByPassword'
+AuthType Basic
+require valid-user

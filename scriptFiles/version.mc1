@@ -1,0 +1,4 @@
+print __MVERSION__;
+print " (build on ";
+print __CVERSION__;
+println ")";

@@ -1,0 +1,43 @@
+from Tkinter import *;
+import random;
+    
+r = Tk('RandomWindow','RandomWindow');
+r.title("Random");
+r.geometry("200x100");
+
+menu1 = Menu(r);
+r.config(menu=menu1);
+
+input1 = Entry(r);
+input1.pack();
+input1.insert(0, "0")
+
+def button1_click():
+
+    if input1.get() == '0':
+        input1.delete(0, END)
+
+    x = random.randint(0, 9);
+    input1.insert(0, x)
+
+def button2_click():
+    
+    input1.delete(0, END)
+    input1.insert(0, "0")
+
+button1 = Button(r, text="Random", command=button1_click);
+button1.pack();
+
+button2 = Button(r, text="Delete text", command=button2_click);
+button2.pack();
+
+mPoint1 = Menu(menu1);
+menu1.add_cascade(label="Data", menu=mPoint1);
+mPoint1.add_command(label="New Random", command=button1_click);
+mPoint1.add_command(label="Delete text", command=button2_click);
+mPoint1.add_command(label="Exit", command=r.destroy);
+
+label1 = Label(r, text='Random by test.mk16.de');
+label1.pack()
+
+r.mainloop();

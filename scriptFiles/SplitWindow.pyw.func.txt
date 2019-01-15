@@ -1,0 +1,76 @@
+from Tkinter import *;
+    
+r = Tk('SplitWindow','SplitWindow');
+r.title("Split");
+r.geometry("200x120");
+
+menu1 = Menu(r);
+r.config(menu=menu1);
+
+input1 = Entry(r);
+input1.pack();
+input1.insert(0, "webmaster@test.mk16.de")
+
+input3 = Entry(r);
+input3.pack();
+input3.insert(0, "0")
+
+input4 = Entry(r);
+input4.pack();
+input4.insert(0, "@")
+
+def button2_click():
+    
+    input1.delete(0, END);
+    input1.insert(0, "webmaster@test.mk16.de");
+    
+    input3.delete(0, END);
+    input3.insert(0, "0");
+    
+    input4.delete(0, END);
+    input4.insert(0, "@");
+
+def button3_click():
+    
+    input1.delete(0, END);
+    input1.insert(0, "");
+    
+    input3.delete(0, END);
+    input3.insert(0, "");
+    
+    input4.delete(0, END);
+    input4.insert(0, "");
+
+def button1_click():
+
+    y = input1.get();
+    s = input4.get();
+
+    input1.delete(0, END)
+    input3.delete(0, END)
+
+    try:
+        x = y.split(s);
+        z = x[1].split('.');
+        
+        input1.insert(0, x);
+        input3.insert(0, len(y));
+    except:
+        input3.delete(0, END)
+        input1.insert(0, y);
+        input3.insert(0, len(y));
+
+button1 = Button(r, text="Split", command=button1_click, fg="Blue", bg="Yellow");
+button1.pack();
+
+mPoint1 = Menu(menu1);
+menu1.add_cascade(label="Data", menu=mPoint1);
+mPoint1.add_command(label="Split", command=button1_click);
+mPoint1.add_command(label="Start text", command=button2_click);
+mPoint1.add_command(label="Delete text", command=button3_click);
+mPoint1.add_command(label="Exit", command=r.destroy);
+
+label1 = Label(r, text='Split by test.mk16.de');
+label1.pack()
+
+r.mainloop();

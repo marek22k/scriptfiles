@@ -1,0 +1,5 @@
+[READ]
+Application=AppData/Settings/Application.ini
+; Translate in German - Deutsch : AppData/Settings/Application_German.ini
+HTTPConfig=AppData/Settings/HTTP.ini
+; JavaScript in AppData/Settings/JavaScript.ini

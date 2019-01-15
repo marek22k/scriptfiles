@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+==========================
+| page:     test.mk16.de |
+| name:     mgapstr.h    |
+| language: en           |
+| type:     Reference    |
+| version:  1.0          |
+==========================
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>mgapstr.h Reference</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="mgapstr.h Reference;" />
+		<meta name="keywords" content="mgapstr.h reference, mgapstr reference, mgapstr_h reference" />
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/images/reference.ico" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/images/reference.ico" />
+		
+		<style type="text/css">
+			table tr th {
+				background-color: maroon;
+				color: white;
+			}
+			
+			table tr td, table tr th {
+				border: 1px solid black;
+			}
+			
+			table tr td p {
+				display: inline;	
+			}
+			
+			code {
+				border: 1px solid gray;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>mgapstr.h Reference</h1>
+			
+			<a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a>
+			
+			<div>
+				<h2>Files</h2>
+				
+				<div>
+					<h3>C</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>File</th>
+								<th>Download</th>
+								<th>Size</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>mgapstr.h</td>
+								<td><a href="//test.mk16.de/scriptFiles/mgapstr.h" target="_blank">test.mk16.de/scriptFiles/mgapstr.h</a></td>
+								<td>3.1 KiloBytes(KB)</td>
+								<td>C header file</td>
+							</tr>
+							<tr>
+								<td>mgapstr.c</td>
+								<td><a href="//test.mk16.de/scriptFiles/mgapstr.c" target="_blank">test.mk16.de/scriptFiles/mgapstr.c</a></td>
+								<td>4.2 KiloBytes(KB)</td>
+								<td>C code file</td>
+							</tr>
+							<tr>
+								<td>mgapstr.o</td>
+								<td><a href="//test.mk16.de/scriptFiles/mgapstr.o" target="_blank">test.mk16.de/scriptFiles/mgapstr.o</a></td>
+								<td>2.8 KiloBytes(KB)</td>
+								<td>Object file</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div>
+				<h2>Types</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Hint(s)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>mgapstr</td>
+							<td>mgapstr contains information about the Gap Buffer String. For example, the size, beginning and end of the buffer, a pointer to the string and a value whether the string is ready for use.</td>
+							<td>It is recommended to change the ptr attribute only with the functions provided.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<h2>Functions</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Function/Declaration</th>
+							<th>Description</th>
+							<th>Argument 1</th>
+							<th>Argument 2</th>
+							<th>Argument 3</th>
+							<th>Return</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>int mgapstr_init(mgapstr *, size_t);</td>
+							<td>Initializes a mgapstr</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The maximum size of the string</td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_good(mgapstr *);</td>
+							<td>Check if a mgapstr is ready for use.</td>
+							<td>A pointer to the mgapstr to be checked.</td>
+							<td></td>
+							<td></td>
+							<td>If it is ready then 1, otherwise 0.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_push(mgapstr *, char);</td>
+							<td>Added a character</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The character to be added.</td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_pushstr(mgapstr *, char *, size_t);</td>
+							<td>Inserts a string</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The string</td>
+							<td>The length of the string</td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_left(mgapstr *);</td>
+							<td>Moves the pointer (gap buffer) one to the left.</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td></td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_right(mgapstr *);</td>
+							<td>Moves the pointer (gap buffer) one to the right.</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td></td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_move(mgapstr *, long);</td>
+							<td>Moves the pointer (gap buffer)</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The number of shifts (positive for a right shift, negative for a left shift)</td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_output(mgapstr *, int (*)(int));</td>
+							<td>Sends each character of a mgapstr to the function. For the pointer (gap buffer), the "-" sign is used.</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The function to which the characters are to be sent. If the function returns 0, an error handling is performed and the output / send operation is aborted.</td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_delete(mgapstr *);</td>
+							<td>Deletes a character to the left of the pointer (gap buffer).</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td></td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_delchars(mgapstr *, size_t);</td>
+							<td>Deletes a certain number of characters to the left of the pointer (gap buffer).</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td>The specific number of characters to be deleted.</td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+						<tr>
+							<td>char * mgapstr_get(mgapstr *);</td>
+							<td>Returns the contents of mgapstr as a string (char *). The storage space for the string was requested with the function malloc from stdlib.h and should therefore be released with the function free.</td>
+							<td>A pointer to the mgapstr, which should be returned as a string.</td>
+							<td></td>
+							<td></td>
+							<td>The string as char *, if an error should occur then a NULL pointer.</td>
+						</tr>
+						<tr>
+							<td>int mgapstr_close(mgapstr *);</td>
+							<td>Free the memory requested by the mgapstr_init function call. As a result, you can no longer use the mgapstr. This function should always be called to the end so that no memory leak occurs.</td>
+							<td>A pointer to the mgapstr to be edited / processed.</td>
+							<td></td>
+							<td></td>
+							<td>Returns 0 on failure, otherwise 1.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<h2>Macros</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Macro</th>
+							<th>Description</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>MGAPSTR_H</td>
+							<td>None</td>
+							<td>None</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div>
+				<h2>Example</h2>
+				<code>
+					#include &lt;stdio.h&gt;<br />
+					#include &lt;stdlib.h&gt;<br />
+					#include &quot;mgapstr.h&quot;<br />
+					<br />
+					int main()<br />
+					{<br />
+					&nbsp;&nbsp;&nbsp; mgapstr gs;<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_init(&amp;gs, 1024);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; if(! mgapstr_good(&amp;gs))<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; abort();<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_pushstr(&amp;gs, &quot;Hello Worlxyzd&quot;, 14);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_move(&amp;gs, -3);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_move(&amp;gs, 2);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_delete(&amp;gs);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_delchars(&amp;gs, 2);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_right(&amp;gs);<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_push(&amp;gs, &#39;!&#39;);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_output(&amp;gs, putchar);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; char * text = mgapstr_get(&amp;gs);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; printf(&quot;\n%s&quot;, text);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; mgapstr_close(&amp;gs);<br />
+					&nbsp;&nbsp;&nbsp; free(text);<br />
+					<br />
+					&nbsp;&nbsp;&nbsp; return 0;<br />
+					}
+				</code>
+				<p>Output: Hello World!-<br />
+						   Hello World!</p>
+			</div>
+		</div>
+		<div id="footer">
+			<table>
+				<tbody>
+					<tr>
+						<td>Web author/Author: Marek K.</td>
+						<td><a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></td>
+					</tr>
+					<tr>
+						<td><p><a href="http://validator.w3.org/check?uri=https%3A%2F%2Ftest.mk16.de%2Fprojects%2Fmgapstr_reference.xhtml" target="_blank"><img src="https://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a></p></td>
+						<td><p><a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="CSS is valid!" /></a></p></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

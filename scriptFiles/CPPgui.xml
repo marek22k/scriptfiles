@@ -1,0 +1,36 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+CPPgui
+</name>
+</assembly>
+<members>
+<member name="T:CPPgui.My.Resources.Resources">
+<summary>
+  Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+</summary>
+</member>
+<member name="P:CPPgui.My.Resources.Resources.ResourceManager">
+<summary>
+  Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+</summary>
+</member>
+<member name="P:CPPgui.My.Resources.Resources.Culture">
+<summary>
+  Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+  Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+</summary>
+</member>
+<member name="P:CPPgui.My.Resources.Resources.run_bat">
+<summary>
+  Sucht eine lokalisierte Zeichenfolge, die @echo off
+
+g++ main.cpp -o a.exe
+a
+
+pause ähnelt.
+</summary>
+</member>
+</members>
+</doc>

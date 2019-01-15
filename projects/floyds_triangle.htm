@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<title>Floyd's Triangle - Floyd's Dreieck</title>
+		
+		<meta name="author" content="Marek K.">
+		<meta name="web_author" content="Marek K.">
+		<meta name="description" content="Das Floyd's Dreieck ist ein Dreieck aus Zahlen, von 1 bis X, und ist N Zeilen hoch. In Zeile Y sind Y Zahlen: In Zeile 1 ist 1 Zahl; In Zeile 2 sind 2 Zahlen">
+		<meta name="robots" content="index, follow">
+		<meta name="keywords" content="Floyd's Triangle, Floyd's Dreick, Floyd Dreieck, Floyd Triangle, Floyds Triangle, Floyds Dreieck, Dreieck, Floyd, Floyd's, Floyds">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/images/floystriangle.ico">
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/images/floystriangle.ico">
+		
+		<style>
+			html, body {
+				background-color: #e6ffff;
+			}
+			
+			.mod {
+				font-size: 12px;
+				background-color: #adebad;
+			}
+			
+			.mod:hover {
+				background-color: #e6e6e6;
+			}
+			
+			math {
+				background-color: #5cd65c;
+				padding: 1px;
+				border-radius: 2px;
+			}
+			
+			math:hover {
+				background-color: #bfbfbf;
+			}
+			
+			pre {
+				background-color: #bfbfbf;
+				display: inline-block;
+				padding: 2px;
+				border-radius: 4px;
+				margin: 5px;
+			}
+			
+			header, main, footer {
+				border: 2px solid black;
+				border-radius: 7px;
+				margin-bottom: 6px;
+				padding: 4px;
+				background-color: white;
+			}
+			
+			h1, footer * {
+				margin: 0px;
+			}
+			
+			div {
+				border: 1px solid red;
+				margin: 2px;
+				margin-bottom: 4px;
+				border-radius: 7px;
+				padding: 3px;
+			}
+			
+			div h2, div h3 {
+				margin-top: 0px;
+			}
+			
+			.yellowd {
+				border: 1px solid #b3b300;
+			}
+			
+			.blued {
+				border: 1px solid blue;
+			}
+			
+			code {
+				background-color: #b3b3ff;
+				display: inline-block;
+				padding: 1px;
+				border-radius: 3px;
+				border: 1px solid blue;
+				margin: 4px;
+				margin-top: 0px;
+			}
+			
+			code:hover {
+				background-color: #ccccff;
+			}
+			
+			#logo {
+				height: 40px;
+				margin-right: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<table>
+				<tr>
+					<td><img src="/images/floystriangle.ico" alt="" id="logo"></td>
+					<td><h1>Floyd's Triangle</h1></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></td>
+				</tr>
+			</table>
+		</header>
+		<main>
+			<div class="yellowd">
+				<h2>Erkl&auml;rung</h2>
+				<p>
+					Das Floyd's Dreieck ist ein Dreieck aus Zahlen, von 1 bis X, und ist N Zeilen hoch.<br>
+					In Zeile Y sind Y Zahlen: In Zeile 1 ist 1 Zahl; In Zeile 2 sind 2 Zahlen; In Zeile 3 sind 3 Zahlen ...
+				</p>
+			</div>
+			
+			<div>
+				<h2>Beispiele</h2>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>1</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+				</pre>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>2</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+2 3
+				</pre>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>3</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+2 3
+4 5 6
+				</pre>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>4</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+2 3
+4 5 6
+7 8 9 10
+				</pre>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>5</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+2 3
+4 5 6
+7 8 9 10
+11 12 13 14 15
+				</pre>
+				
+				<p>
+					Ein Beispiel f&uuml;r ein Dreieck: Es gilt 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>6</mn>
+					</math>
+					:
+				</p>
+							
+				<pre>
+1
+2 3
+4 5 6
+7 8 9 10
+11 12 13 14 15
+16 17 18 19 20 21
+				</pre>
+				
+			</div>
+			
+			<div>
+				<h2>Knobelaufgabe</h2>
+				<p>
+					Gib eine Formel an, mit der die letzte Zahl, damit die Anzahl der Zahlen, X, berechnet werden kann.<br>
+					Gegeben ist nur N.
+				</p>
+				
+				<div>
+					<h3>Beispiel</h3>
+					<p>Wenn 
+					<math>
+						<mi>N</mi>
+						<mo>=</mo>
+						<mn>4</mn>
+					</math>
+					dann ist
+					<math>
+						<mi>X</mi>
+						<mo>=</mo>
+						<mn>10</mn>
+					</math>
+					.
+					</p>
+				</div>
+				
+				<div>
+					<h3>L&ouml;sung</h3>
+					<p>
+						Das Dreieck &auml;hnelt sehr einer Dreiecks Form.<br>
+						Vielleicht l&auml;sst sich X wie der Fl&auml;cheninhalt eines Dreiecks berechnen?!<br>
+						<math>
+							<mfrac>
+								<mrow>
+									<mi>N</mi>
+									<mo>*</mo>
+									<mi>N</mi>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">((N*N)/2=X)</span>
+					</p>
+					<p>Versuchen wir es:<br>
+						<math>
+							<mfrac>
+								<mrow>
+									<mn>4</mn>
+									<mo>*</mo>
+									<mn>4</mn>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>=</mo>
+							<mn>8</mn>
+						</math><br>
+						<span class="mod">((4*4)/2)</span>
+					</p>
+					<p>Das geht nicht! Schade!<br><br>
+					Aber <math>
+							<mi>N</mi>
+							<mo>*</mo>
+							<mi>N</mi>
+							<mo>=</mo>
+							<msup>
+								<mi>N</mi>
+								<mn>2</mn>
+							</msup>
+						</math><span class="mod">(N*N=N^2)</span> ist ein guter Ansatz.<br>
+					Also <math>
+							<msup>
+								<mi>N</mi>
+								<mn>2</mn>
+							</msup>
+						</math><span class="mod">(N^2)</span> subtrakiert mit U(Unbekannt) ergibt X:<br>
+						<math>
+							<msup>
+								<mi>N</mi>
+								<mn>2</mn>
+							</msup>
+							<mo>-</mo>
+							<mi>U</mi>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">(N^2-U=X)</span>
+					</p>
+					<p>
+						Was ist U?<br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>1</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>0</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>2</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>1</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>3</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>3</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>4</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>6</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>5</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>10</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>6</mn></math> ist <math><mi>U</mi><mo>=</mo><mn>15</mn></math><br>
+						Es ist nur N gegeben, dass heizt aus N muss irgentwie 0, 1, 3, 6 usw. werden.<br>
+					</p>
+					<p>
+						Mit welcher Zahl muss N multipliziert werden damit aus N, U wird?<br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>1</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>0</mn><mo>=</mo><mn>0</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>2</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>0.5</mn><mo>=</mo><mn>1</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>3</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>1</mn><mo>=</mo><mn>3</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>4</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>1.5</mn><mo>=</mo><mn>6</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>5</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>2</mn><mo>=</mo><mn>10</mn></math><br>
+						Bei <math><mi>N</mi><mo>=</mo><mn>6</mn></math> ist <math><mi>U</mi><mo>=</mo><mi>N</mi><mo>*</mo><mn>2.5</mn><mo>=</mo><mn>15</mn></math><br>
+						Man sieht ein Muster 0, 0.5, 1, 1.5 usw. Die Zahlen werden immer um 0.5 Erh&ouml;ht.<br>
+						Die Formel f&uuml;r diese Reihenfolge ist:<br>
+						<math>
+							<mn>0.5</mn>
+							<mo>*</mo>
+							<mrow>
+								<mo>(</mo>
+								<mi>N</mi>
+								<mo>-</mo>
+								<mn>1</mn>
+								<mo>)</mo>
+							</mrow>
+							<mo>=</mo>
+							<mn>0.5</mn>
+							<mo>*</mo>
+							<mi>N</mi>
+							<mo>-</mo>
+							<mn>0.5</mn>
+						</math>
+						<br>
+						<span class="mod">(0.5*(N-1)=0.5*N-0.5)</span>
+					</p>
+					<p>
+						Das f&uuml;r U eingesetzt ergibt:<br>
+						<math>
+							<msup>
+								<mi>N</mi>
+								<mn>2</mn>
+							</msup>
+							<mo>-</mo>
+							<mrow>
+								<mo>(</mo>
+								<mn>0.5</mn>
+								<mo>*</mo>
+								<mi>N</mi>
+								<mo>-</mo>
+								<mn>0.5</mn>
+								<mo>)</mo>
+							</mrow>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">(N^2-(0.5*N-0.5)=X)</span>
+						<br>
+						Das Verk&uuml;rtzt:<br>
+						<math>
+							<mn>0.5</mn>
+							<mo>*</mo>
+							<msup>
+								<mi>N</mi>
+								<mn>2</mn>
+							</msup>
+							<mo>+</mo>
+							<mn>0.5</mn>
+							<mo>*</mo>
+							<mi>N</mi>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">(0.5*N^2+0.5*N=X)</span><br>
+						Dies kann man auch als Division dastellen, denn 
+						<math>
+							<mn>0.5</mn>
+							<mo>*</mo>
+							<mi>X</mi>
+							<mo>=</mo>
+							<mfrac>
+								<mi>X</mi>
+								<mn>2</mn>
+							</mfrac>
+						</math>
+						<span class="mod">(0.5*X=X/2)</span>
+						:<br>
+						<math>
+							<mfrac>
+								<mrow>
+									<msup>
+										<mi>N</mi>
+										<mn>2</mn>
+									</msup>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>+</mo>
+							<mfrac>
+								<mrow>
+									<mi>N</mi>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">(N^2/2+N/2=X)</span>
+					</p>
+					<p>
+						Damit w&auml;re die L&ouml;sung:<br>
+						<math>
+							<mfrac>
+								<mrow>
+									<msup>
+										<mi>N</mi>
+										<mn>2</mn>
+									</msup>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>+</mo>
+							<mfrac>
+								<mrow>
+									<mi>N</mi>
+								</mrow>
+								<mrow>
+									<mn>2</mn>
+								</mrow>
+							</mfrac>
+							<mo>=</mo>
+							<mi>X</mi>
+						</math><br>
+						<span class="mod">(N^2/2+N/2=X)</span>
+					</p>
+				</div>
+			</div>
+			
+			<div class="blued">
+				<h2>Implementierung in C</h2>
+				
+				<p><a href="/scriptFiles/floydtri_c.c" target="_blank">floydtri_c.c</a></p>
+				<code>#include &lt;stdio.h&gt;&nbsp; /* printf, scanf */<br />
+				<br />
+				int main()<br />
+				{<br />
+				&nbsp;&nbsp;&nbsp; int n;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; printf(&quot;Please enter a number: &quot;);<br />
+				&nbsp;&nbsp;&nbsp; scanf(&quot;%d&quot;, &amp;n);<br />
+				&nbsp;&nbsp;&nbsp; printf(&quot;\nFloyd&#39;s triangle:\n&quot;);<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; register int i, j, num;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; for(i = 1, num = 1; i &lt;= n; i++)<br />
+				&nbsp;&nbsp;&nbsp; {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(j = 0; j &lt; i; j++, num++)<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;%d &quot;, num);<br />
+				<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;\n&quot;);<br />
+				&nbsp;&nbsp;&nbsp; }<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; return 0;<br />
+				}</code>
+			</div>
+			
+			<div class="blued">
+				<h2>Implementierung in C++</h2>
+				
+				<p><a href="/scriptFiles/floydtri_cpp.cpp" target="_blank">floydtri_cpp.cpp</a></p>
+				<code>#include &lt;iostream&gt;&nbsp; /* std::cout, std::cin, std::endl */<br />
+				<br />
+				using std::cout;<br />
+				using std::cin;<br />
+				using std::endl;<br />
+				<br />
+				int main()<br />
+				{<br />
+				&nbsp;&nbsp;&nbsp; int n;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; cout &lt;&lt; &quot;Please enter a number: &quot;;<br />
+				&nbsp;&nbsp;&nbsp; cin &gt;&gt; n;<br />
+				&nbsp;&nbsp;&nbsp; cout &lt;&lt; endl &lt;&lt; &quot;Floyd&#39;s triangle:&quot; &lt;&lt; endl;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; int j;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp; for(int i = 1, num = 1; i &lt;= n; i++)<br />
+				&nbsp;&nbsp;&nbsp; {<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(j = 0; j &lt; i; j++, num++)<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout &lt;&lt; num &lt;&lt; &quot; &quot;;<br />
+				<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout &lt;&lt; endl;<br />
+				&nbsp;&nbsp;&nbsp; }<br />
+				&nbsp;&nbsp;&nbsp; return 0;<br />
+				}</code>
+			</div>
+			
+			<div class="blued">
+				<h2>Implementierung in Java</h2>
+				
+				<p><a href="/scriptFiles/floydtri_java.java" target="_blank">floydtri_java.java</a></p>
+				<code>package floytri_java;<br />
+				<br />
+				import java.util.Scanner;<br />
+				<br />
+				public class floytri_java {<br />
+				<br />
+				&nbsp;&nbsp; &nbsp;public static void main(String[] args) {<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.print(&quot;Please enter a number: &quot;);<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Scanner s = new Scanner(System.in);<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;int n = s.nextInt();<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;s.close();<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println(&quot;\nFloyd&#39;s triangle:&quot;);<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;int j;<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;for(int i = 1, num = 1; i &lt;= n; i++)<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;for(j = 0; j &lt; i; j++, num++)<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.print(num + &quot; &quot;);<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;System.out.println(&quot;&quot;);<br />
+				&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;}<br />
+				&nbsp;&nbsp; &nbsp;}<br />
+				<br />
+				}</code>
+			</div>
+			
+			<div class="blued">
+				<h2>Implementierung in Ruby</h2>
+				
+				<p><a href="/scriptFiles/floydtri_ruby.rb" target="_blank">floydtri_ruby.rb</a></p>
+				<code>print &quot;Please enter a number: &quot;<br />
+				n = gets.to_i<br />
+				puts &quot;\nFloyd&#39;s triangle:&quot;<br />
+				<br />
+				num = 1<br />
+				<br />
+				for i in 1..n<br />
+				&nbsp; for j in 0...i<br />
+				&nbsp;&nbsp;&nbsp; print &quot;#{num} &quot;<br />
+				&nbsp;&nbsp;&nbsp; num += 1<br />
+				&nbsp; end<br />
+				&nbsp; puts<br />
+				end</code>
+			</div>
+		</main>
+		<footer>
+			<table>
+				<tbody>
+					<tr>
+						<td><p>Web author/Author: Marek K.<p></td>
+						<td><p><a href="http://mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></p></td>
+					</tr>
+					<tr>
+						<td><p><a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="CSS ist valide!"></a></p></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</footer>
+	</body>
+</html>

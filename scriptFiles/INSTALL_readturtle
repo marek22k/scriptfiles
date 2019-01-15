@@ -1,0 +1,23 @@
+1. Create a folder called "readturtle".
+
+
+2. Insert the directory the files readturlte.cpp, turtlescript.cpp, turtlescript.hpp and readturlteRakefile from test.mk16.de/scriptFiles or bitbucket.org/marek22k/scriptFiles/.
+
+3. Create a file named "config.yml" and add:
+---
+boost: [YOUR BOOST DIRECTORY]
+
+Replace [YOUR BOOST DIRECTORY] with your C++ Boost Library path.
+
+4. Execute the following command at a terminal: rake -f readturtleRakefile
+
+5. To check if readturtle works, run the following command: rake -f readturtleRakefile test
+It would now have, among other things, "100% of the tests were successful." be issued.
+
+6. To delete the temporary build files that were created while building readturtle,
+run the following command: rake -f readturtleRakefile clean
+
+There will now be a new file in the directory: "readturtle.exe" or "readturtle.out" or similar.
+(This differs depending on the operating system)
+
+If building does not work, check if you have Ruby, the Rubygem Rake, and a C++ compiler installed.

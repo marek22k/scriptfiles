@@ -1,0 +1,24 @@
+﻿Class LibraryBooks
+
+    Dim name As String = ""
+    Dim pages(999) As String
+
+    Sub New(ByVal bookname As String)
+        name = bookname
+    End Sub
+
+    Sub NewPage(ByVal page_num As Integer, ByVal page_value As String)
+        pages.SetValue(page_value, page_num)
+    End Sub
+
+    Function GetBook() As String
+        Dim book As String = "Title: " & name & " = "
+        For i As Integer = 0 To 999
+            If Not (pages(i) = Nothing) Then
+                book += "# Book page " & i.ToString & ": " & pages(i)
+            End If
+        Next
+        Return book
+    End Function
+
+End Class

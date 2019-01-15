@@ -1,0 +1,125 @@
+# Author: Marek K.
+
+=begin
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Dieses Programm ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
+  der GNU General Public License, wie von der Free Software Foundation,
+  Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+  verÃ¶ffentlichten Version, weiter verteilen und/oder modifizieren.
+
+  Dieses Programm wird in der Hoffnung bereitgestellt, dass es nÃ¼tzlich sein wird, jedoch
+  OHNE JEDE GEWÃ„HR,; sogar ohne die implizite
+  GewÃ¤hr der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+  Siehe die GNU General Public License fÃ¼r weitere Einzelheiten.
+
+  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+
+=end
+
+require "rake"
+require "rake/clean"
+require "rbconfig"
+require "yaml"
+
+$config = YAML.load_file("config.yml")
+$cc = RbConfig::CONFIG["CXX"]
+$out = "./readturtle#{RbConfig::CONFIG["EXEEXT"]}"
+$std = "c++17"
+$objects = FileList.new("*.cpp").pathmap("%X.o")
+$compile_flags = %q(-Wall -Wextra -Wpedantic) + " -std=" + $std + " " + RbConfig::CONFIG["optflags"] + " -I" + $config["boost"]
+
+$test_tur = <<-END_TEST_TUR
+integer@test = 22;
+string@happy = "chrismas";
+boolean@yes = true;
+float@komma = 5.5;
+bignum@verybig = 44444;
+byte@b = 345;
+# test;
+byte@bb = $b;
+END_TEST_TUR
+
+$readturtle_test_rb = <<END_READTURTLE_TEST_RB
+require "test/unit"
+require "rbconfig"
+
+$data = <<END
+test\t--- INTEGER\t--- 22
+happy\t--- STRING\t--- chrismas
+yes\t--- BOOLEAN\t--- true
+komma\t--- FLOAT\t--- 5.5
+verybig\t--- BIGNUM\t--- 44444
+b\t--- BYTE\t--- 89
+bb\t--- BYTE\t--- 89
+END
+
+class ReadturtleTest < Test::Unit::TestCase
+    
+    def setup
+        system "readturtle#{RbConfig::CONFIG["EXEEXT"]} test.tur > output.txt"
+        @res = File.read "output.txt"
+    end
+    
+    def test_simple
+        assert_equal @res, $data
+    end
+    
+end
+END_READTURTLE_TEST_RB
+
+CLEAN.include $objects
+CLEAN.include "output.txt", "result.txt", "test.tur", "readturtle_test.rb", "config.yml"
+CLOBBER.include $out
+
+desc "Create readturtle"
+task :default do |t|
+    Rake::Task[$out].invoke
+end
+
+desc "Create execute file"
+task $out => $objects do |t|
+    touch t.name
+    system "#{$cc} -o #{t.name} #{t.sources.join " "}"
+end
+
+desc "Run a test that checks if readturtle works."
+task :test do |t|
+    touch "output.txt"
+    touch "result.txt"
+    touch "test.tur"
+    touch "readturtle_test.rb"
+    File.open("test.tur", "w") { |f|
+        f.write $test_tur
+        f.close
+    }
+    File.open("readturtle_test.rb", "w") { |f|
+        f.write $readturtle_test_rb
+        f.close
+    }
+    system "#{$out} test.tur > output.txt"
+    system "#{RbConfig::CONFIG["RUBY_INSTALL_NAME"]} readturtle_test.rb > result.txt"
+    res = File.read("result.txt").scan(/notifications\n(.*)\% passed/)[0][0]
+    puts "#{res}% of the tests were successful."
+    if res != "100"
+        puts "The test was unsuccessful. Maybe readturtle does not work properly!"
+    end
+end
+
+rule ".o" => ".cpp" do |t|
+    touch t.name
+    system "#{$cc} -c -o #{t.name} #{t.source} #{$compile_flags}"
+end

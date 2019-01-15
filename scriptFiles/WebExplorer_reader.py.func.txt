@@ -1,0 +1,115 @@
+#!/usr/bin/python
+# -*- coding: ISO-8859-1 -*-
+# Name: WebExplorer :: Reader
+# File: WebExplorer_reader.py
+# Version: 1.0
+# Of: 15/12/2016
+# Author: Marek Küthe
+#################################################################################
+#                            Please no edit syntax!                             #
+#                                                                               #
+# f. E. dataopen('mk16.de','/?page=Unterhaltung/Wiki_und_Blog/Ueber_Autisten')  #
+#            Module dataopen(website, path, ssl=False, olink=False)             #
+#                                                                               #
+#              Import modules: from WebExplorer_reader import *                 #
+#                                                                               #
+#                               For more info please email:                     #
+#                               webmaster[aet]test.mk16.de                      #
+#################################################################################
+################################### STOP EDIT ###################################
+#################################################################################
+
+import httplib;
+from Tkinter import *;
+from HTMLParser import HTMLParser;
+
+def getWebData(website,path,ssl=False):
+    http_port = 80;
+    https_port = 443;
+    h = '';
+    if(ssl == False):
+        h = httplib.HTTPConnection(website,int(http_port));
+    else:
+        h = httplib.HTTPSConnection(website,int(https_port));
+    x = {
+        'Host':website
+    }
+    h.request('GET',path,headers=x);
+    r = h.getresponse();
+    return [r.read(),r.status,r.reason];
+
+r = Tk('WebExplorer_readerWindow','WebExplorer_readerWindow');
+r.title("WebExplorer :: Reader");
+r.geometry("900x500");
+
+s = Scrollbar(r);
+s.pack(side=RIGHT, fill=Y);
+
+te = Text(r, height=900, width=500);
+
+s.config(command=te.yview);
+
+te.pack(side=RIGHT, fill=Y);
+te.config(yscrollcommand=s.set);
+te.insert(END, 'WebExplorer :: Reader'+"\n\n");st = '';
+sa = '';
+link = False;
+
+def getAttr(attrs, search):
+    for i in attrs:
+        if(i[0] == search):
+            return i[1];
+
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        global st;
+        global sa;
+        st = tag;
+        sa = attrs;
+        
+    def handle_endtag(self, tag):
+        True;
+        
+    def handle_data(self, data):
+        global st;
+        global sa;
+        #print('*'+st+':'+data+'*');
+        #print('*'+st+'*');
+        print('READER\\'+st);
+        if(data != '' and data != '''
+		
+		''' and data != '''
+		''' and data != '''
+				''' and data != '''
+			''' and data != '    ' and data != "\n" and data != ' '):
+            data = data.replace('	','');
+            if(st == 'button'):
+                te.insert(END, "#"+data+"#");
+            elif(st == 'li'):
+                te.insert(END, '*>'+data+"");
+            elif(st == 'em'):
+                te.insert(END, '//'+data+"");
+            elif(st == 'b' or st == 'strong'):
+                te.insert(END, '|'+data+"|");
+            elif(st == 'u'):
+                te.insert(END, '__'+data+"__");
+            elif(st == 'div' or st == 'p' or st == 'pre' or st == 'code'):
+                te.insert(END, ('-'*50)+"\n>"+data+"\n"+('-'*50));
+            elif(st == 'a'):
+                if(link == True):
+                    te.insert(END, "<"+data+">("+getAttr(sa, 'href')+")");
+                else:
+                    te.insert(END, "<"+data+">");
+            elif(st == 'title'):
+                r.title("WebExplorer :: Reader "+data);
+            elif(st == 'br'):
+                te.insert(END, data);
+        
+def dataopen(website, path, ssl=False, olink=False):
+    global link;
+    link = olink;
+    data = getWebData(website, path, ssl);
+    parser = MyHTMLParser();
+    parser.feed(data[0]);
+
+    r.mainloop();

@@ -1,0 +1,25 @@
+$ Author: Marek K. ;
+
+svar x;
+svar y;
+svar operator;
+
+println @ "Example: 1 + 1";
+
+print "Input: ";
+
+scan x;
+strscan operator;
+scan y;
+
+print "Result: ";
+print x;
+print " + ";
+print y;
+print " = ";
+
+if operator == "+" {println x + y};
+if operator == "-" {println x - y};
+if operator == "*" {println x * y};
+if operator == "/" {println x / y};
+if operator == "%" {println x % y};

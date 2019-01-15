@@ -1,0 +1,161 @@
+<!--
+
+    Author: Marek K.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Dieses Programm ist Freie Software: Sie koennen es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veroeffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Dieses Programm wird in der Hoffnung bereitgestellt, dass es nuetzlich sein wird, jedoch
+    OHNE JEDE GEWAEHR,; sogar ohne die implizite
+    Gewaehr der MARKTFAEHIGKEIT oder EIGNUNG FUER EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fuer weitere Einzelheiten.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery ToDo List from m.k[aet]mk16[dot]de</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+        html {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        body {
+            background-color: orange;
+            padding: 5px;
+            margin: 0px;
+        }
+        
+        #newItem {
+            border: 1px solid gray;
+            outline: 1px solid green;
+            margin: 2px;
+        }
+        
+        #newItem:hover {
+            border-color: black;
+            outline-color: gray;
+        }
+        
+        #addItem {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            display: inline-block;
+            margin: 0px;
+        }
+        
+        .item {
+            border: none;
+            margin-top: 1px;
+        }
+        
+        #addButton {
+            outline: 1px solid green;
+            margin: 2px;
+            padding: 3px;
+            border: 1px solid #3F3F3F;
+            background-color: #2E8B57;
+            color: white;
+        }
+        
+        #addButton:hover {
+            border-color: black;
+            background-color: #2E9F57;
+        }
+        
+        #addButton:active {
+            background-color: #2E8057;
+        }
+        
+        .closeButton {
+            border: 1px solid red;
+            color: black;
+            padding: 1px;
+            margin: 0px;
+            margin-bottom: 2px;
+            display: inline-block;
+            font-family: Arial;
+            font-size: 10px;
+        }
+        
+        .closeButton:hover {
+            border-color: black;
+            color: red;
+        }
+        
+        .closeButton:active {
+            border-color: brown;
+            color: black;
+        }
+    </style>
+    <script src="//mk16.de/System/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!-- Import jQuery 3.2.1 -->
+
+    <script type="text/javascript">
+        $(function() {
+
+            var ls = $("#todolist");
+            var ni = $("#newItem");
+            var nm = 0;
+
+            $("#addButton").click(function() {
+                var val = ni.val();
+                if (val != "") {
+                    var item = $("<li></li>");
+                    var clos = $("<p></p>");
+                    var local = nm;
+
+                    $(clos).text("X");
+                    $(clos).click(function() {
+                        $("#do" + local).remove();
+                        $("#doButton" + local).remove();
+                    });
+                    $(clos).attr("id", "doButton" + local);
+
+                    $(item).addClass("item");
+                    $(clos).addClass("closeButton");
+
+                    $(item).attr("id", "do" + local);
+                    $(item).text(val);
+                    $(ni).val("");
+                    $(ls).append(item);
+                    $(ls).append(clos);
+                }
+                nm += 1;
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <p id="addItem"><span>New item: </span><input type="text" id="newItem" /><button id="addButton">Add</button></p>
+    <ul id="todolist">
+        <li>jQuery ToDo List from m.k[aet]mk16[dot]de</li>
+    </ul>
+</body>
+
+</html>

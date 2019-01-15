@@ -1,0 +1,1 @@
+function randint(toNumber){return Math.floor(Math.random()*toNumber);};

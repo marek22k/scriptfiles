@@ -1,0 +1,51 @@
+
+$ The Output is
+356
+2
+test hallo
+wie geht es dir?
+script.mc1
+mc1
+6
+5
+1528463375
+
+-1
+1
+3
+5
+7
+9
+
+
+;
+
+svar s = 3;
+print s;
+s = 5;
+print s;
+svar z = 2;
+$line;
+svar x = 2;
+svar zehn = 10;
+print s + z - x + 1 + 9 - zehn + 1;
+line;
+print 5%3;
+svar str = "test hallo";
+str = "test hallo";
+line;
+print str;line;
+print "wie geht es dir?";line;
+println __FILENAME__;$line;
+println __MVERSION__;
+svar res;
+res = @ 1 + s;
+println res;
+svar t = @ res - 1;
+println t;
+time t;
+println t;
+flush;line;
+t = 0;
+for 0 10 2 {println __FOR__-1}{flush}{flush}{flush};
+line;

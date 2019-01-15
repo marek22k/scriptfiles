@@ -1,0 +1,13 @@
+$ Author: Marek K. ;
+
+svar n = 5;
+svar i = 1;
+svar j = 0;
+svar x = 1;
+
+print "n = ";
+scan n;
+line;
+println @ "Floyd's Triangle: ";
+
+while i <= n {while j < i {!print x!}{!print " "!}{!j = @ j + 1!}{!x = @ x + 1!}}{line}{j = 0}{i = @ i + 1};

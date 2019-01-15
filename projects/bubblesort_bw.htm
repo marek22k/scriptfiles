@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Bubblesort</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Bubblesort; bubblesort.h, bubblesort.c; bubblesort(&quot;acegbdf&quot;, test, comparison);" />
+		<meta name="keywords" content="bubblesort, c bubblesort, bubblesort in c, bubblesort in the c programming language, bubblesort.h, bubblesort.c" />
+		<meta name="author" content="Marek K." />
+		<meta name="web_author" content="Marek K." />
+		<meta name="robots" content="index, follow" />
+		
+		<link rel="icon" type="image/png" href="/images/bubblesort.ico" />
+		<link rel="shortcut icon" type="image/png" href="/images/bubblesort.ico" />
+		
+		<style>
+			html, body {
+				background-color: white;
+			}
+			
+			header, main, footer {
+				border: 1px solid black;
+				background-color: white;
+				padding: 7px;
+				margin-bottom: 10px;
+				border-radius: 10px;
+				padding-left: 3%;
+			}
+			
+			header *, main *, footer * {
+				margin: 0px;
+			}
+			
+			#filestable thead tr th {
+				border: 1px solid black;
+			}
+			
+			#filestable tbody tr td {
+				border: 1px solid black;
+			}
+			
+			code {
+				border: 1px solid black;
+				display: inline-block;
+				padding: 1px;
+				border-radius: 3px;
+			}
+			
+			a {
+				color: black;
+			}
+			
+			.layouttable, .layouttable tr, .layouttable tr td {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.layouttable tr td.icon img {
+				width: 75px;
+				height: 75px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<table class="layouttable">
+				<tbody>
+					<tr>
+						<td class="icon"><img src="/images/bubblesort_bw.png" alt="bubblesort Icon"></td>
+						<td><h1>Bubblesort</h1></td>
+					</tr>
+					<tr>
+						<td><a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			
+		</header>
+		<main>
+			<table id="filestable">
+				<thead>
+					<tr>
+						<th>Filename</th>
+						<th>Size</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="//test.mk16.de/scriptFiles/bubblesort.h" target="_blank">bubblesort.h</a></td>
+						<td>181B</td>
+						<td>C header file</td>
+					</tr>
+					<tr>
+						<td><a href="//test.mk16.de/scriptFiles/bubblesort.c" target="_blank">bubblesort.c</a></td>
+						<td>845B</td>
+						<td>C code file</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="maincontent">
+				<h2>Author</h2>
+				<div>
+					<p>Die C-Dateien bubblesort.h und bubblesort.c wurden von Marek K. am 31.03.2018 geschrieben.</p>
+					<p>The C files bubblesort.h and bubblesort.c were written by Marek K. on 31.03.2018.</p>
+				</div>
+				
+				<h2>Content</h2>
+				<div>
+					<p>Die Dateien beinhalten die 2 Funktionen bubblesort und standardcomparison.</p>
+					<p>The files contain the 2 functions bubblesort and standardcomparison.</p>
+				</div>
+				
+				<h2>Function bubblesort</h2>
+				<div>
+					<p><code><span class="k">void</span> bubblesort(<span class="k">const</span> <span class="k">char</span>* str, <span class="k">char</span>* cpy, <span class="k">_Bool</span> (*bigger) (<span class="k">char</span>, <span class="k">char</span>))</code></p>
+					<p>Erster Parameter: Die zu sortierende Zeichenfolge</p>
+					<p>First parameter: The string to be sorted</p>
+					<p>Zweiter Parameter: die Variable in der das Resultat(die sortierte Zeichenfolge) gespeichert werden soll.</p>
+					<p>Second parameter: the variable in which the result (the sorted string) is to be stored.</p>
+					<p>Dritter Parameter: Die Funktion, die &uuml;berpr&uuml;ft ob a gr&ouml;&szlig;er ist als b.</p>
+					<p>Third parameter: The function that checks if a is greater than b.</p>
+					<p>Die Funktion sollte einen _Bool zur&uuml;ckgeben und bekommt zwei Argumente vom Typ char.</p>
+					<p>The function should return a _Bool and get two arguments of type char.</p>
+					<p>Wenn a gr&ouml;&szlig;er ist als b sollte die Funktion true(1) zur&uuml;ckgeben, andernfalls false(0).</p>
+					<p>If a is greater than b, the function should return true (1), otherwise false (0).</p>
+					<p>Eine Standard &uuml;berpr&uuml;fungs Funktion namens standardcomparison ist vorhanden.</p>
+					<p>There is a standard checking function called standardcomparison.</p>
+					<br>
+					<div>
+						<p>Beispiel / Example:</p>
+						<code>
+						<span class="p">#include &lt;stdio.h&gt;</span>  <span class="c">/* printf */</span><br>
+						<span class="p">#include &quot;bubblesort.h&quot;</span> <span class="c">/* bubblesort, standardcomparison */</span><br>
+						<br>
+						<span class="k">int</span> main()<br>
+						{<br>
+						&nbsp;&nbsp;&nbsp; <span class="k">char</span> test[7];  <span class="c">/* In dieser Variable wird das Resultat(die sortierte Zeichenfolge) gespeichert. / This variable stores the result (the sorted string). */</span><br>
+						<br>
+						&nbsp;&nbsp;&nbsp; bubblesort(<span class="t">&quot;acegbdf&quot;</span>, test, standardcomparison);  <span class="c">/* Funktion bubblesort zum sortieren wird aufgerufen. / Function bubblesort to sort is called. */</span><br>
+						<br>
+						&nbsp;&nbsp;&nbsp; printf(<span class="t">&quot;%s&quot;</span>, test);  <span class="c">/* Die sortierte Zeichenfolge wird ausgegeben. / The sorted string is output. */</span><br>
+						&nbsp;&nbsp;&nbsp; <span class="k">return</span> 0;<br>
+						}<br>
+						</code>
+					</div>
+					<p>Man kann auch eine eigene Funktion schreiben, die &uuml;berpr&uuml;ft ob a gr&ouml;&szlig;er ist als b.</p>
+					<p>You can also write your own function that checks if a is greater than b.</p>
+					<p>Die Funktionsdeklaration sollte wie folgt aussehen:</p>
+					<p>The function declaration should look like this:</p>
+					<code><span class="k">_Bool</span> comparison(<span class="k">char</span> a, <span class="k">char</span> b)</code>
+					<p>Der Funktionsname ist nat&uuml;rlich frei w&auml;hlbar.</p>
+					<p>The function name is of course freely selectable.</p>
+					<div>
+						<p>Beispiel / Example:</p>
+						<code>
+						<span class="p">#include &lt;stdio.h&gt;</span>  <span class="c">/* printf */</span><br>
+						<span class="p">#include &quot;bubblesort.h&quot;</span> <span class="c">/* bubblesort */</span><br>
+						<br>
+						<span class="k">_Bool</span> comparison(<span class="k">char</span> a, <span class="k">char</span> b);<br>
+						<br>
+						<span class="k">int</span> main()<br>
+						{<br>
+						&nbsp;&nbsp;&nbsp; <span class="k">char</span> test[7];<br>
+						<br>
+						&nbsp;&nbsp;&nbsp; bubblesort(<span class="t">&quot;acegbdf&quot;</span>, test, comparison);<br>
+						<br>
+						&nbsp;&nbsp;&nbsp; printf(<span class="t">&quot;%s&quot;</span>, test);<br>
+						&nbsp;&nbsp;&nbsp; <span class="k">return</span> 0;<br>
+						}<br>
+						<br>
+						<span class="k">_Bool</span> comparison(<span class="k">char</span> a, <span class="k">char</span> b)<br>
+						{<br>
+						&nbsp;&nbsp;&nbsp; <span class="k">return</span> (a &gt; b);<br>
+						}<br>
+						</code>
+					</div>
+					<p>Damit die Zeichenfolge nach der sortierung umgekehrt wird, kann man statt <code><span class="k">return</span> (a &gt; b);</code> auch <code><span class="k">return</span> (a &lt; b);</code> schreiben.</p>
+					<p>So that the string is reversed after sorting, you can also write <code><span class="k">return</span> (a &lt; b);</code> instead of <code><span class="k">return</span> (a &gt; b);</code>.</p>
+					<p>Die Ausgabe des Codes w&auml;re dann dementsprechend: gfedcba</p>
+					<p>The output of the code would be accordingly: gfedcba</p>
+				</div>
+			</div>
+		</main>
+		<footer>
+			Web author/Author: Marek K. | <a href="//mk16.de/?page=Impressum" target="_blank">Impressum / Imprint</a>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+require "rake"
+
+task :default => :pizza
+
+desc "Teig bereitstellen"
+task :teig do
+	puts "Kaufe Fertig-Teig oder stelle selber welchen her"
+end
+
+desc "Tomaten bereitstellen"
+task :tomaten do
+	puts "Kaufe Tomaten"
+end
+
+desc "Salami bereitstellen"
+task :salami do
+	puts "Kaufe Salami"
+end
+
+desc "Mais bereitstellen"
+task :mais do
+	puts "OEffne die Mais-Dose"
+end
+
+desc "Kaese bereitstellen"
+task :kaese do
+	puts "Reibe den Kaese in Mini Stuecke oder kaufe Kaese"
+end
+
+desc "Pizza zubereiten"
+task :pizza => ["teig", "tomaten", "salami", "mais", "kaese"] do
+	puts "Lege auf die Pizza den Teig"
+	puts "Lege auf den Teig die Tomaten"
+	puts "Lege auf die Tomaten Salami"
+	puts "Lege auf die Salami den Mais"
+	puts "Lege die Kaese auf die Pizza"
+end

@@ -1,0 +1,29 @@
+########################
+####                ####
+###  This functions  ###
+##      is by         ##
+#                      #
+#     mk16.de and      #
+##    test.mk16.de    ##
+###                  ###
+####                ####
+########################
+
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+def randint(a=9, b=0):
+    import random;
+    i = random.randint(b, a);
+    return i;
+def randstr():
+    x = ['A ', 'B ', 'C ', 'D ', 'E ', 'F ', 'G ', 'H ', 'I ', 'J ', 'K ', 'L ', 'M ', 'N ', 'O ', 'P ', 'Q ', 'R ', 'S ', 'T ', 'U ', 'V ', 'W ', 'X ', 'Y ', 'Z'];
+    y = randint(int(len(x))-1);
+    z = x[y];
+    return z;
+def randallstr(a):
+    x = '';
+    for i in range(0, a):
+        x += randstr();
+    x = x.replace(' ','');
+    return x;

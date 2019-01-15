@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+use strict;
+use CGI;
+
+my $cgi = new CGI;
+my $getURL = $cgi -> param('url');
+print $cgi -> header(-charset => 'UTF-8');
+print $cgi -> start_html(-title => 'CheckHTTP', -lang => 'en');
+
+if($getURL =~ qr/(.*):\/\/(.*)\/(.*)/) {
+	print "yes;\n";
+}else{
+	print "no\n";
+}
+
+print $cgi -> end_html;

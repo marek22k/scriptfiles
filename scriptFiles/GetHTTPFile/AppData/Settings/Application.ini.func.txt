@@ -1,0 +1,14 @@
+[Application]
+ico=AppData/Images/icoStyle8.ico
+size=195x95
+
+[Application_Button]
+color=Red
+bgcolor=Yellow
+border=0
+text=Go
+
+[Application_Menu]
+pointtext=Data
+runtext=Go
+exittext=Exit/Quit

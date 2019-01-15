@@ -1,0 +1,4 @@
+svar res = 0;
+res = @ res + 1;
+print res;line;
+$ println = print + line ;

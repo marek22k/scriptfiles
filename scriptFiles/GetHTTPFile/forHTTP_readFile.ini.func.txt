@@ -1,0 +1,7 @@
+[DATA]
+localfile=D:\python\readFile.py
+
+server=test.mk16.de
+port=80
+method=GET
+path=/scriptFiles/readFile.py.func.txt
