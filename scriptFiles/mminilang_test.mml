@@ -1,0 +1,5 @@
+y = 1 + 1
+print(y--1-1)
+print(_1)
+print(1 x 3)
+print( ( sqrt(4) + gcd(2, 256) ) / 2 )
