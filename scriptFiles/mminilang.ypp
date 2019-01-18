@@ -56,7 +56,8 @@ language:     /* nothing */
 ;
 
 statment:     '\n'
-            | exp
+            | exp '\n'
+            | exp ';'
             | error                     { yyerrok; }
 ;
 
@@ -185,3 +186,5 @@ double ygetarg(double key, YP_ARG_3 args)
     else
         return args[ind - 1];
 }
+
+
