@@ -68,7 +68,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "mminilang.ypp"
+#line 33 "mminilang.ypp"
 
     #include <iostream>
     #include <map>
@@ -84,9 +84,9 @@
 
     int yylex(YP_ARG_1, YP_ARG_2, YP_ARG_3);
     void yyerror(YP_ARG_1, YP_ARG_2, YP_ARG_3, char const *);
-    double ycall(char *);
-    double ycall(char *, double);
-    double ycall(char *, double, double);
+    double ycall(char *, std::ostream &);
+    double ycall(char *, double, std::ostream &);
+    double ycall(char *, double, double, std::ostream &);
 
     void ysetvar(char *, double);
     double ygetvar(char *);
@@ -140,7 +140,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 28 "mminilang.ypp"
+#line 60 "mminilang.ypp"
 
     double flo;
     char name[255];
@@ -453,9 +453,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    54,    54,    55,    58,    59,    60,    61,    64,    65,
-      66,    67,    68,    69,    70,    71,    73,    74,    75,    77,
-      78,    79,    80,    81,    82,    83,    84,    85
+       0,    86,    86,    87,    90,    91,    92,    93,    96,    97,
+      98,    99,   100,   101,   102,   103,   105,   106,   107,   109,
+     110,   111,   112,   113,   114,   115,   116,   117
 };
 #endif
 
@@ -1421,147 +1421,147 @@ yyreduce:
         case 7:
 
 /* Line 1455 of yacc.c  */
-#line 61 "mminilang.ypp"
+#line 93 "mminilang.ypp"
     { yyerrok; ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 64 "mminilang.ypp"
+#line 96 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(1) - (1)].flo); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 65 "mminilang.ypp"
-    { (yyval.flo) = ycall((yyvsp[(1) - (3)].name)); ;}
+#line 97 "mminilang.ypp"
+    { (yyval.flo) = ycall((yyvsp[(1) - (3)].name), sto); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 66 "mminilang.ypp"
-    { (yyval.flo) = ycall((yyvsp[(1) - (4)].name), (yyvsp[(3) - (4)].flo)); ;}
+#line 98 "mminilang.ypp"
+    { (yyval.flo) = ycall((yyvsp[(1) - (4)].name), (yyvsp[(3) - (4)].flo), sto); ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 67 "mminilang.ypp"
-    { (yyval.flo) = ycall((yyvsp[(1) - (6)].name), (yyvsp[(3) - (6)].flo), (yyvsp[(5) - (6)].flo)); ;}
+#line 99 "mminilang.ypp"
+    { (yyval.flo) = ycall((yyvsp[(1) - (6)].name), (yyvsp[(3) - (6)].flo), (yyvsp[(5) - (6)].flo), sto); ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 68 "mminilang.ypp"
+#line 100 "mminilang.ypp"
     { (yyval.flo) = 1; ysetvar((yyvsp[(1) - (3)].name), (yyvsp[(3) - (3)].flo)); ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 69 "mminilang.ypp"
+#line 101 "mminilang.ypp"
     { (yyval.flo) = ygetvar((yyvsp[(1) - (1)].name)); ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 70 "mminilang.ypp"
+#line 102 "mminilang.ypp"
     { (yyval.flo) = ygetarg((yyvsp[(2) - (2)].flo), args); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 71 "mminilang.ypp"
+#line 103 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(2) - (3)].flo); ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 73 "mminilang.ypp"
+#line 105 "mminilang.ypp"
     { (yyval.flo) = - (yyvsp[(2) - (2)].flo); ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 74 "mminilang.ypp"
+#line 106 "mminilang.ypp"
     { (yyval.flo) = ~ static_cast<int>((yyvsp[(2) - (2)].flo)); ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 75 "mminilang.ypp"
+#line 107 "mminilang.ypp"
     { (yyval.flo) = ! static_cast<int>((yyvsp[(2) - (2)].flo)); ;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 77 "mminilang.ypp"
+#line 109 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(1) - (3)].flo) + (yyvsp[(3) - (3)].flo); ;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 78 "mminilang.ypp"
+#line 110 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(1) - (3)].flo) - (yyvsp[(3) - (3)].flo); ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 79 "mminilang.ypp"
+#line 111 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(1) - (3)].flo) * (yyvsp[(3) - (3)].flo); ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 80 "mminilang.ypp"
+#line 112 "mminilang.ypp"
     { (yyval.flo) = (yyvsp[(1) - (3)].flo) / (yyvsp[(3) - (3)].flo); ;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 81 "mminilang.ypp"
+#line 113 "mminilang.ypp"
     { (yyval.flo) = static_cast<int>((yyvsp[(1) - (3)].flo)) % static_cast<int>((yyvsp[(3) - (3)].flo)); ;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 82 "mminilang.ypp"
+#line 114 "mminilang.ypp"
     { (yyval.flo) = pow((yyvsp[(1) - (3)].flo), (yyvsp[(3) - (3)].flo)); ;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 83 "mminilang.ypp"
+#line 115 "mminilang.ypp"
     { (yyval.flo) = static_cast<int>((yyvsp[(1) - (3)].flo)) & static_cast<int>((yyvsp[(3) - (3)].flo)); ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 84 "mminilang.ypp"
+#line 116 "mminilang.ypp"
     { (yyval.flo) = static_cast<int>((yyvsp[(1) - (3)].flo)) | static_cast<int>((yyvsp[(3) - (3)].flo)); ;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 85 "mminilang.ypp"
+#line 117 "mminilang.ypp"
     { (yyval.flo) = static_cast<int>((yyvsp[(1) - (3)].flo)) ^ static_cast<int>((yyvsp[(3) - (3)].flo)); ;}
     break;
 
@@ -1780,7 +1780,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 88 "mminilang.ypp"
+#line 120 "mminilang.ypp"
 
 
 int yylex(YP_ARG_1 sti, YP_ARG_2, YP_ARG_3)
@@ -1817,12 +1817,12 @@ int yylex(YP_ARG_1 sti, YP_ARG_2, YP_ARG_3)
 
 void yyerror(YP_ARG_1, YP_ARG_2, YP_ARG_3, char const * str)
 {
-    std::cout << "Error: " << str << std::endl;
+    std::cerr << "Error: " << str << std::endl;
     exit(EXIT_FAILURE);
 }
 
 
-double ycall(char * func)
+double ycall(char * func, std::ostream &)
 {
     if(strcmp(func, "exit") == 0)
     {
@@ -1834,13 +1834,13 @@ double ycall(char * func)
 }
 
 
-double ycall(char * func, double a)
+double ycall(char * func, double a, std::ostream & sto)
 {
     if(strcmp(func, "sqrt") == 0)
         return sqrt(a);
     else if(strcmp(func, "print") == 0)
     {
-        std::cout << a << std::endl;
+        sto << a << std::endl;
         return 1;
     }
     else if(strcmp(func, "exit") == 0)
@@ -1852,7 +1852,7 @@ double ycall(char * func, double a)
         return 0;
 }
 
-double ycall(char * func, double a, double b)
+double ycall(char * func, double a, double b, std::ostream &)
 {
     if(strcmp(func, "gcd") == 0)
         return static_cast<double>(gcd(static_cast<unsigned>(a), static_cast<unsigned>(b)));
