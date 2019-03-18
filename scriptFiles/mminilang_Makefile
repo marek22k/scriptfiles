@@ -2,7 +2,7 @@ CC = g++
 YACC = bison
 
 prog:
-	$(YACC) mminilang.ypp -o mminilang_parser.cpp -Werror
+	$(YACC) mminilang_parser.ypp -o mminilang_parser.cpp -Werror
 	$(CC) mminilang_parser.cpp -o mminilang_parser.o -c -std=c++17 -O3 -Wall -Wextra -Wpedantic
 	$(CC) mminilang.cpp -o mminilang.o -c -std=c++17 -O3 -Wall -Wextra -Wpedantic
 	$(CC) mminilang.o mminilang_parser.o -o mminilang.exe -m32

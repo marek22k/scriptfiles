@@ -36,17 +36,33 @@
 #include <istream>
 #include <ostream>
 #include <vector>
+#include <exception>
+#include <stdexcept>
 
 #include <cstddef>
 #include <cmath>
 
 #define YP_ARG_1 std::istream &
 #define YP_ARG_2 std::ostream &
-#define YP_ARG_3 std::vector<double> &
+#define YP_ARG_3 std::istream &
+#define YP_ARG_4 std::vector<double> &
 
 /* decs */
-int yyparse(YP_ARG_1, YP_ARG_2, YP_ARG_3);
+int yyparse(YP_ARG_1, YP_ARG_2, YP_ARG_3, YP_ARG_4);
 unsigned gcd(unsigned, unsigned);
 unsigned lcm(unsigned, unsigned);
+unsigned fact(unsigned);
+
+void mml_error(std::exception);
+void mml_error(std::invalid_argument);
+void mml_error(std::runtime_error);
+#if 0
+void mml_error(std::logic_error);
+void mml_error(std::domain_error);
+void mml_error(std::out_of_range);
+void mml_error(std::range_error);
+void mml_error(std::overflow_error);
+void mml_error(std::underflow_error);
+#endif
 
 #endif

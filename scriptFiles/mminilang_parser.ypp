@@ -1,0 +1,284 @@
+// Author: Marek K.
+
+/*
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Dieses Programm ist Freie Software: Sie koennen es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veroeffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Dieses Programm wird in der Hoffnung bereitgestellt, dass es nuetzlich sein wird, jedoch
+    OHNE JEDE GEWAEHR,; sogar ohne die implizite
+    Gewaehr der MARKTFAEHIGKEIT oder EIGNUNG FUER EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fuer weitere Einzelheiten.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+    
+*/
+
+%{
+    #include <iostream>
+    #include <map>
+    #include <string>
+
+    #include <cstdio>
+    #include <cstdlib>
+    #include <cmath>
+    #include <cctype>
+    #include <cstring>
+
+    #include "mminilang.hpp"
+
+    int yylex(YP_ARG_1, YP_ARG_2, YP_ARG_3, YP_ARG_4);
+    void yyerror(YP_ARG_1, YP_ARG_2, YP_ARG_3, YP_ARG_4, char const *);
+    double ycall(char *, std::ostream &, std::istream &);
+    double ycall(char *, double, std::ostream &, std::istream &);
+    double ycall(char *, char *, std::ostream &, std::istream &);
+    double ycall(char *, double, double, std::ostream &, std::istream &);
+    double ycall(char *, double, double, double, std::ostream &, std::istream &);
+    double ycall(char *, double, double, double, double, std::ostream &, std::istream &);
+
+    void ysetvar(const char *, double);
+    double ygetvar(const char *);
+
+    double ygetarg(double, YP_ARG_4);
+
+    std::map<std::string, double> variables;
+%}
+
+%union {
+    double flo;
+    char name[255];
+}
+
+%parse-param { YP_ARG_1 sti } 
+%parse-param { YP_ARG_2 sto }
+%parse-param { YP_ARG_3 stii }
+%parse-param { YP_ARG_4 args }
+%lex-param { YP_ARG_1 sti }
+%lex-param { YP_ARG_2 sto }
+%lex-param { YP_ARG_3 stii }
+%lex-param { YP_ARG_4 args }
+
+%token <flo> FLO
+%token <name> NAME
+%right '='
+%left '+' '-'
+%left '*' '/' '%'
+%left '&' '|' 'x'
+%left NEG NOT LOGIC_NOT
+%left '^'
+%left ARG
+
+%type <flo> exp
+%type <flo> statment
+%type <flo> language
+
+%initial-action {
+    ysetvar(std::string("VERSION").c_str(), 2);
+};
+
+%%
+
+language:     /* nothing */                                     { $$ = 1; }
+            | language statment                                 { $$ = $2; }
+;
+
+statment:     '\n'                                              { $$ = 0; }
+            | ';'                                               { $$ = 0; }
+            | exp '\n'                                          { $$ = $1; }
+            | exp ';'                                           { $$ = $1; }
+            | error                                             { $$ = 0; yyerrok; }
+;
+
+exp:      FLO                                                   { $$ = $1; }
+        | NAME '(' ')'                                          { $$ = ycall($1, sto, stii); }
+        | NAME '(' exp ')'                                      { $$ = ycall($1, $3, sto, stii); }
+        | NAME '(' '"' NAME '"' ')'                             { $$ = ycall($1, $4, sto, stii); }
+        | NAME '{' language '}'                                 { $$ = ycall($1, $3, sto, stii); }
+        | NAME '(' exp ',' exp ')'                              { $$ = ycall($1, $3, $5, sto, stii); }
+        | NAME '{' language ',' language '}'                    { $$ = ycall($1, $3, $5, sto, stii); }
+        | NAME '(' exp ',' exp ',' exp ')'                      { $$ = ycall($1, $3, $5, $7, sto, stii); }
+        | NAME '{' language ',' language ',' language '}'       { $$ = ycall($1, $3, $5, $7, sto, stii); }
+        | NAME '(' exp ',' exp ',' exp ',' exp ')'              { $$ = ycall($1, $3, $5, $7, $9, sto, stii); }
+        | NAME '{' language ',' language ','
+            language ',' language '}'                           { $$ = ycall($1, $3, $5, $7, $9, sto, stii); }
+        | NAME '=' exp                                          { $$ = 1; ysetvar($1, $3); }
+        | NAME                                                  { $$ = ygetvar($1); }
+        | '_' exp %prec ARG                                     { $$ = ygetarg($2, args); }
+        | '(' exp ')'                                           { $$ = $2; }
+        /* 1 Operand */
+        | '-' exp %prec NEG                                     { $$ = - $2; }
+        | '~' exp %prec NOT                                     { $$ = ~ static_cast<int>($2); }
+        | '!' exp %prec LOGIC_NOT                               { $$ = ! static_cast<int>($2); }
+        | '|' exp '|'                                           { $$ = abs($2); }
+        /* 2 Operands */
+        | exp '+' exp                                           { $$ = $1 + $3; }
+        | exp '-' exp                                           { $$ = $1 - $3; }
+        | exp '*' exp                                           { $$ = $1 * $3; }
+        | exp '/' exp                                           { $$ = $1 / $3; }
+        | exp '%' exp                                           { $$ = static_cast<int>($1) % static_cast<int>($3); }
+        | exp '^' exp                                           { $$ = pow($1, $3); }
+        | exp '&' exp                                           { $$ = static_cast<int>($1) & static_cast<int>($3); }
+        | exp '|' exp                                           { $$ = static_cast<int>($1) | static_cast<int>($3); }
+        | exp 'x' exp                                           { $$ = static_cast<int>($1) ^ static_cast<int>($3); }
+;
+
+%%
+
+int yylex(YP_ARG_1 sti, YP_ARG_2, YP_ARG_3, YP_ARG_4)
+{
+    char c = static_cast<char>(0);
+    
+    while(c == ' ' || c == '\t' || c == static_cast<char>(0))
+        c = sti.get();
+
+    if(isdigit(c) || c == '.')
+    {
+        sti.putback(c);
+        sti >> yylval.flo;
+        return FLO;
+    }
+    else if(isalpha(c) && c != 'x')
+    {
+        size_t i;
+        sti.putback(c);
+        //sti.get(yylval.name, 255, '(');
+        for(i = 0; i < 254 && isalpha(c); i++)
+        {
+            yylval.name[i] = c = sti.get();
+        }
+        sti.putback(yylval.name[i - 1]);
+        yylval.name[i - 1] = static_cast<char>(0);
+        return NAME;
+    }
+    else if(c == EOF)
+        return 0;
+    else
+        return c;
+}
+
+void yyerror(YP_ARG_1, YP_ARG_2, YP_ARG_3, YP_ARG_4, char const * str)
+{
+    mml_error(std::runtime_error(std::string(str)));
+}
+
+
+double ycall(char * func, std::ostream &, std::istream & stii)
+{
+    if(strcmp(func, "exit") == 0)
+    {
+        exit(EXIT_SUCCESS);
+        return 1;
+    }
+    else if(strcmp(func, "scan") == 0)
+    {
+        double dou;
+        stii >> dou;
+        if(stii.fail())
+            mml_error(std::runtime_error("Invalid input!"));
+
+        return dou;
+    }
+    else
+        return 0;
+}
+
+
+double ycall(char * func, double a, std::ostream & sto, std::istream &)
+{
+    if(strcmp(func, "sqrt") == 0)
+        return sqrt(a);
+    else if(strcmp(func, "print") == 0)
+    {
+        sto << a << std::endl;
+        return 1;
+    }
+    else if(strcmp(func, "exit") == 0)
+    {
+        exit(static_cast<int>(a));
+        return 1;
+    }
+    else if(strcmp(func, "fact") == 0)
+    {
+        return fact(static_cast<unsigned>(a));
+    }
+    else
+        return 0;
+}
+
+double ycall(char * func, char * a, std::ostream & sto, std::istream &)
+{
+    if(strcmp(func, "print") == 0)
+    {
+        sto << a << std::endl;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+double ycall(char * func, double a, double b, std::ostream &, std::istream &)
+{
+    if(strcmp(func, "gcd") == 0)
+        return static_cast<double>(gcd(static_cast<unsigned>(a), static_cast<unsigned>(b)));
+    else if(strcmp(func, "lcm") == 0)
+        return static_cast<double>(lcm(static_cast<unsigned>(a), static_cast<unsigned>(b)));
+    else if(strcmp(func, "root") == 0)
+        return pow(a, 1.0/b);
+    else
+        return 0;
+}
+
+
+double ycall(char * func, double a, double b, double c, std::ostream &, std::istream &)
+{
+    if(strcmp(func, "if") == 0)
+        return (a==b?c:0);
+    else
+        return 0;
+    return 0;
+}
+
+double ycall(char * func, double a, double b, double c, double d, std::ostream &, std::istream &)
+{
+    if(strcmp(func, "ifelse") == 0)
+        return (a==b?c:d);
+    else
+        return 0;
+}
+
+inline void ysetvar(const char * name, double val)
+{
+    variables[std::string(name)] = val;
+}
+
+inline double ygetvar(const char * name)
+{
+    return variables[std::string(name)];
+}
+
+double ygetarg(double key, YP_ARG_4 args)
+{
+    size_t ind = static_cast<size_t>(key);
+    if(ind > args.size())
+        return 0;
+    else
+        return args[ind - 1];
+}

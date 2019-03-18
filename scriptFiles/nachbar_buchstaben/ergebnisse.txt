@@ -1,0 +1,72 @@
+Messung 1:
+
+Bei i=0 ist r=0.0
+Bei i=1 ist r=0.0
+Bei i=2 ist r=0.26
+Bei i=3 ist r=0.66
+Bei i=4 ist r=1.46
+Bei i=5 ist r=2.26
+Bei i=6 ist r=4.09
+Bei i=7 ist r=6.35
+Bei i=8 ist r=8.72
+Bei i=9 ist r=10.56
+Bei i=10 ist r=16.87
+
+Messung 2:
+Bei i=10 ist r=14.11
+Bei i=11 ist r=13.51
+Bei i=12 ist r=19.48
+Bei i=13 ist r=22.53
+Bei i=14 ist r=27.08
+Bei i=15 ist r=34.4
+Bei i=16 ist r=35.19
+Bei i=17 ist r=42.86
+Bei i=18 ist r=45.63
+Bei i=19 ist r=54.6
+Bei i=20 ist r=53.4
+
+Messung 3:
+Bei i=0 ist r=0.0
+Bei i=1 ist r=0.0
+Bei i=2 ist r=0.16
+Bei i=3 ist r=1.26
+Bei i=4 ist r=1.74
+Bei i=5 ist r=1.77
+Bei i=6 ist r=3.78
+Bei i=7 ist r=5.04
+Bei i=8 ist r=7.93
+Bei i=9 ist r=10.55
+Bei i=10 ist r=12.57
+Bei i=11 ist r=12.0
+Bei i=12 ist r=17.97
+Bei i=13 ist r=21.37
+Bei i=14 ist r=26.46
+Bei i=15 ist r=25.97
+Bei i=16 ist r=32.98
+Bei i=17 ist r=40.64
+Bei i=18 ist r=45.09
+Bei i=19 ist r=49.15
+Bei i=20 ist r=61.99
+
+Messung 4:
+Bei i=0 ist r=0.0
+Bei i=1 ist r=0.0
+Bei i=2 ist r=0.88
+Bei i=3 ist r=0.15
+Bei i=4 ist r=1.78
+Bei i=5 ist r=2.41
+Bei i=6 ist r=5.03
+Bei i=7 ist r=5.64
+Bei i=8 ist r=8.0
+Bei i=9 ist r=11.67
+Bei i=10 ist r=13.84
+Bei i=11 ist r=18.58
+Bei i=12 ist r=18.46
+Bei i=13 ist r=17.89
+Bei i=14 ist r=28.05
+Bei i=15 ist r=32.43
+Bei i=16 ist r=35.59
+Bei i=17 ist r=40.69
+Bei i=18 ist r=46.18
+Bei i=19 ist r=48.81
+Bei i=20 ist r=60.09

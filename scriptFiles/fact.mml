@@ -1,0 +1,7 @@
+print("Input")
+in = scan()
+res = fact(in)
+print("Success")
+print(ifelse(in, 0, 1, ifelse(res, 0, 0, 1)))
+print("Result")
+print(res)
